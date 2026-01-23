@@ -1,0 +1,122 @@
+​Aniket Verma​
+​Senior Software Engineer (GenAI/ML)​
+​Email​​:​​aniketverma1103@gmail.com​ ​|​ ​Phone:​​+91 8439106273​ ​|​ ​Linkedin​​:​​https://www.linkedin.com/in/aniketverma11​
+​Github https://github.com/aniketverma11​ ​| Current​​Location :​​Noida, Uttar Pradesh, India, 201301​
+
+​Professional Summary​
+​ s​ ​a​​Python​​engineer​​with​​4​​years​​of​​experience,​​I​​specialize​​in​​designing,​​developing,​​and​​deploying​
+​●​ A
+​innovative web applications using the​​Django/FastAPI/Flask framework​​.​
+​●​ ​Currently, I am focused on building intelligent​​AI​​agents​​and​​copilots​​. I have developed​​15+​
+​Corporate AI Agents​​using​​Python, LangGraph, and Microsoft​​Copilot Studio​​, with an emphasis on​
+​workflow automation and enterprise-grade AI integrations. This involves using​​LangChain​​, Python, and​
+​Microsoft Power Platform (Power Automate, Power Apps) with Microsoft Studio.​
+​●​ ​I am experienced in utilizing various cloud services including AWS, GCP, and Azure to ensure high​
+​scalability, performance, and resilience in applications.​
+​●​ ​I am proficient in leveraging NumPy arrays and Pandas DataFrames for efficient handling of large​
+​volumes of structured data, facilitating insightful exploratory data analysis.​
+
+​Work Experience​
+​Senior Software Engineer @​​Coforge​​| Sep 2024 - Present​
+​Microsoft SL Project​
+​●​ D
+​ eveloped​ ​and​ ​deployed​ ​enterprise​ ​Copilot​ ​agents​ ​using​ ​Python,​ ​LangChain,​ ​and​ ​Azure​ ​AI​ ​Foundry,​
+​integrating​ ​with​ ​Microsoft​ ​Power​ ​Platform​ ​for​ ​intelligent​ ​automation​ ​and​ ​natural​ ​language​ ​workflows.​
+​Designed​ ​custom​ ​AI​ ​copilots​ ​with​ ​LangChain​ ​+​ ​Azure​ ​OpenAI​ ​for​ ​dynamic​ ​task​ ​execution,​ ​enhancing​
+​operational efficiency.​
+​Arch Insurance Project​
+​ rchitected​ ​next-generation​ ​insurance​ ​solutions​ ​using​ ​Django,​ ​ReactJS,​ ​FastAPI,​ ​Langchain,​ ​and​
+​●​ A
+​CrewAI. Drove AI-powered mobile features, workflow automation, and improved client experiences.​
+​Full Stack Python Developer @​​Benthon Labs​​|​​Oct 2023​​- July 2024​
+​ s​ ​a​ ​Full​ ​Stack​ ​Python​ ​Developer​ ​at​ ​Benthon​ ​Labs,​ ​I​ ​led​ ​the​ ​development​ ​of​ ​PulseCRM-pro​ ​using​
+​●​ A
+​Node.js,​​Express,​​and​​MongoDB,​​deploying​​it​​on​​AWS​​EC2.​​I​​also​​spearheaded​​the​​integration​​of​​PyTest,​
+​Django,​ ​and​ ​its​ ​REST​ ​framework​ ​for​ ​the​ ​Dalmia​ ​Bharat​ ​MM​ ​portal,​ ​improving​ ​response​ ​times​ ​and​
+​customer satisfaction.​
+​●​ ​My​​work​​included​​developing​​a​​microservice​​for​​data​​validation,​​significantly​​reducing​​discrepancies,​​and​
+​designing interactive frontend interfaces for mobile applications, boosting user experience.​
+​Software Developer Engineer(Python/ Django) 1 @​​CreateBytes​ ​|​​Jul 2022 - Sep 2023​
+​ s​​a​​Software​​Development​​Engineer​​at​​CreateBytes​​from​​July​​2022​​to​​September​​2023,​​I​​specialized​​in​
+​●​ A
+​Machine Learning and AI products using Django.​
+​●​ ​I​​contributed​​to​​YugYog,​​a​​video​​analytics​​platform​​that​​achieved​​30%​​faster​​processing​​speeds​​and​​was​
+​deployed on AWS with integrated queues and SNS services.​
+​●​ ​I​​also​​worked​​on​​CB-Vision,​​an​​ML-based​​microservices​​project​​utilizing​​FastAPI​​and​​Django,​​where​​I​​led​
+​the development of a Motion Detector for identifying object motion and suspicious activity.​
+
+​Blockchain Developer @​​Rapid Innovation​ ​| Mar 2022​​- Jul 2022​
+
+​●​ I​n​​the​​Web3​​domain,​​build​​decentralized​​applications​​(DApps)​​on​​the​​Ethereum​​and​​Solana​​blockchains.​
+​I created DApps and Smart Contracts to empower decentralized users in the Web3 business landscape.​
+​●​ ​The​ ​technical​ ​orchestration​ ​involved​ ​employing​ ​JavaScript​ ​libraries​ ​such​ ​as​ ​Chai​ ​and​ ​Hardhat,​ ​and​
+​Python​ ​Libraries​ ​such​ ​as​ ​Brownie​ ​to​ ​test​ ​each​ ​contract​ ​and​ ​seamless​ ​functionality​ ​rigorously.​ ​Utilizing​
+​Solidity and Solana, Also creating, I have created many smart contracts on the Ethereum blockchain.​
+​●​ ​This represents the convergence of technology and creativity within the intricate Web3 framework.​
+
+​Personal Projects​
+​Labops.in​​/​Orinn.ai​​| 2024​
+​●​ L
+​ abobs​ ​is​​a​​Medical​​Lab​​Management​​System​​designed​​to​​handle​​patient​​tests,​​medical​​checkups,​​and​
+​payment history efficiently.​
+​●​ ​Using​​Django,​​I​​have​​developed​​robust​​APIs​​and​​backend​​services.​​The​​system​​uses​​PostgreSQL​​for​​its​
+​database​ ​management.​ ​For​ ​deployment,​ ​I​ ​utilized​ ​AWS​ ​EC2​ ​and​ ​Gunicorn​ ​to​ ​ensure​ ​a​ ​scalable​ ​and​
+​production-ready​ ​environment.​ ​By​ ​implementing​ ​cost-saving​ ​strategies,​ ​I​ ​successfully​ ​reduced​ ​the​
+​deployment and service expenses on AWS by approximately 50%.​
+
+​Skills​
+​​ P
+●
+​ rogramming Language​ ​->​ ​Python​ ​• Blockchain • Solidity • JavaScript • SQL • HTML • CSS • C • C++ • C#​
+​●​ ​Web​ ​Frameworks​ ​->​ ​Django​ ​•​ ​Django​ ​REST​ ​Framework​ ​•​ ​Ethereum​ ​•​ ​Node.js​ ​•​ ​Fast-API​ ​•​ ​React.js​​•​
+​ ERN​ ​•​ ​ExpressJS​ ​•​ ​PyTest​ ​•​ ​LLM​​(Large​​Language​​Models)​ ​•​​TensorFLow​ ​•​ ​PyTorch​ ​•​​Langchain​​•​​RAG​​•​
+M
+​GenAI • LangGraph​
+​●​ ​Databases ->​ ​PostgreSql​ ​• MySql • MariaDB •​ ​DBMS​ ​• MongoDB​
+​ ​ ​Cloud Services ->​ ​Amazon Web Services (AWS) •​​Azure • EC2 • CloudWatch • GCP •​​AWS​​Lambda •​​AWS​
+●
+​Kendra • AWS Sagemaker •
+AWS APIGateway • AWS S3 • AWS ECS • AWS EC2 • GCP Functions • GCP​
+​Virtual Machine • Azure Cosmos DB​
+​●​ ​Server​​Side​​Tools​ ​->​ ​Git​ ​•​ ​Linux​ ​•​ ​Docker​ ​•​ ​Nginx​ ​•​ ​Decentralized​​Network​ ​•​​Decentralized​​Finance​ ​•​
+​CI/CD​
+
+​Education​
+​ r. A.P.J. Abdul Kalam Technical University (2022)​
+D
+​- B.tech​​,​​Computer Science and Engineering​
+​-​​Grades - 7.23 CGPA​
+
+​ unwar​ ​Jagdish​ ​Prasad​ ​Sanatan​ ​Dharam​
+K
+​High School, Muzaffarnagar, UP​
+​- 10th​​(High School)​
+
+​ .A.V. Inter College, Muzaffarnagar, UP (2017)​
+D
+​- 12th​​(Intermediate)​
+
+​Licenses & Certifications​
+​ weet​ ​Emotion​​Recognition​​with​​TensorFlow​​-​
+​●​ T
+​Coursera.org​​(Issued Sep 2025)​
+​●​ ​Building Neural Networks: Artificial Neural​
+​Networks Using Frameworks - Skillsoft​
+​(Issued Mar 2025)​
+​●​ ​Problem-Solving Certificate -​​HackerRank​
+​●​ ​P​roblem​ ​Solving(Intermediate)​ ​Certificate​ ​-​
+​HackerRank​
+​●​ ​SQL (Advance)​
+​●​ ​Containerized Applications on AWS​
+
+​●​ A
+​ erial Image Segmentation with PyTorch -​
+​Coursera.org​​(Issued Jul 2025)​
+​●​ ​Deep Learning with PyTorch : Image​
+​Segmentation - Coursera.org​​(Issued May​
+​2025)’​
+
+​LANGUAGES​ ​-​ ​ENGLISH​ ​(Intermediate​ ​working​ ​proficiency),​ ​Hindi​ ​(​Full​ ​professional​ ​proficiency)​ ​|​ ​INTERESTS​ ​-​ ​Blockchain,​ ​AI,​
+​Programming, Leadership​​. |​​HOBBIES​​-​Books Reading,​​Blog writing, Chess, Travelling.​
+
+
