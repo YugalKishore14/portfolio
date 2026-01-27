@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { personalData } from "@/lib/data";
 import { ShieldCheck } from "lucide-react";
+import { PersonalData } from "@/lib/types";
 
-export default function About() {
+export default function About({ data }: { data: PersonalData }) {
+    const personalData = data;
     return (
         <section id="about" className="py-24 relative">
             <div className="container mx-auto px-4 flex flex-col md:flex-row gap-12 items-center">

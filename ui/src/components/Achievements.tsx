@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { achievements } from "@/lib/data";
+import { Achievement } from "@/lib/types";
 
-export default function Achievements() {
+export default function Achievements({ data }: { data: Achievement[] }) {
+    const achievements = data;
     return (
         <section id="achievements" className="py-24 bg-gradient-to-b from-transparent to-green-900/10">
             <div className="container mx-auto px-4">

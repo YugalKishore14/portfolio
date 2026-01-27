@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { personalData } from "@/lib/data";
 import { ChevronDown } from "lucide-react";
+import { PersonalData } from "@/lib/types";
 
-export default function Hero() {
+export default function Hero({ data }: { data: PersonalData }) {
+    const personalData = data;
     return (
         <section
             id="hero"

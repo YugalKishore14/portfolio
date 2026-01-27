@@ -1,11 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { projects } from "@/lib/data";
 import { Globe, X, Github, ExternalLink } from "lucide-react";
+import { Project } from "@/lib/types";
 
-export default function Projects() {
-    const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+export default function Projects({ data }: { data: Project[] }) {
+    const projects = data;
+    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
     return (
         <section id="projects" className="py-24 bg-slate-900/20 relative">

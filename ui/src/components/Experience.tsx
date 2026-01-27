@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { experience } from "@/lib/data";
 import { Hammer } from "lucide-react";
+import { Experience as ExperienceType } from "@/lib/types";
 
-export default function Experience() {
+export default function Experience({ data }: { data: ExperienceType[] }) {
+    const experience = data;
     return (
         <section id="experience" className="py-24 relative overflow-hidden">
             <div className="container mx-auto px-4">

@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { personalData } from "@/lib/data";
 import { Mail, Linkedin, Github, FileText, Send } from "lucide-react";
+import { PersonalData } from "@/lib/types";
 
-export default function Contact() {
+export default function Contact({ data }: { data: PersonalData }) {
+    const personalData = data;
     return (
         <section id="contact" className="py-24 relative overflow-hidden">
             {/* Signal Beam Effect */}

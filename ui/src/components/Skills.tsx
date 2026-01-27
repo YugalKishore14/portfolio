@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { skills } from "@/lib/data";
 import { Cpu, Database, Cloud, Code, Terminal, Zap } from "lucide-react";
+import { Skill } from "@/lib/types";
 
 const iconMap: Record<string, React.ReactNode> = {
     "Languages": <Code className="w-6 h-6" />,
@@ -12,7 +12,8 @@ const iconMap: Record<string, React.ReactNode> = {
     "AI & Blockchain": <Terminal className="w-6 h-6" />,
 };
 
-export default function Skills() {
+export default function Skills({ data }: { data: Skill[] }) {
+    const skills = data;
     return (
         <section id="skills" className="py-24 relative bg-slate-950/50">
             <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-900 to-transparent" />
