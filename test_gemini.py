@@ -1,13 +1,15 @@
 
 import os
-import google.generativeai as genai
+from google import genai
 
 GEMINI_API_KEY = "AIzaSyCy0NSLjVw8qY3S5aKMoFIqq5f8lQ8IWA0"
-genai.configure(api_key=GEMINI_API_KEY)
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 try:
-    model = genai.GenerativeModel('gemini-2.5-flash')
-    response = model.generate_content("Hello, this is a test.")
+    response = client.models.generate_content(
+        model='gemini-2.0-flash', 
+        contents="Hello, this is a test."
+    )
     print("Success!")
     print(response.text)
 except Exception as e:

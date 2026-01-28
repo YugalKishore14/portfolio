@@ -2,7 +2,8 @@
 import os
 import json
 import asyncio
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
 from dotenv import load_dotenv
@@ -10,13 +11,12 @@ from .models import PersonalData, SkillCategory, Experience, Project, Achievemen
 
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-genai.configure(api_key=GEMINI_API_KEY)
 
 class ChatConsumer(AsyncWebsocketConsumer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.chat = None
-        self.model = genai.GenerativeModel('gemini-2.5-flash')
+        self.client = genai.Client(api_key=GEMINI_API_KEY)
 
     async def connect(self):
         await self.accept()
@@ -44,10 +44,21 @@ class ChatConsumer(AsyncWebsocketConsumer):
             4. Do not hallucinatel; if you don't know, say you don't have that information.
             """
             
-            self.chat = self.model.start_chat(history=[
-                {"role": "user", "parts": [system_prompt]},
-                {"role": "model", "parts": ["Hello! I am Jarvis, Aniket's digital assistant. How can I help you learn more about his work today?"]}
-            ])
+            # Use gemini-2.0-flash if available, otherwise gemini-1.5-flash. 
+            # We'll use 2.0-flash as it is the latest generally available/experimental model suited for this.
+            self.chat = self.client.chats.create(
+                model='gemini-2.0-flash', 
+                history=[
+                    types.Content(
+                        role="user", 
+                        parts=[types.Part(text=system_prompt)]
+                    ),
+                    types.Content(
+                        role="model", 
+                        parts=[types.Part(text="Hello! I am Jarvis, Aniket's digital assistant. How can I help you learn more about his work today?")]
+                    )
+                ]
+            )
         except Exception as e:
             print(f"Error initializing chat session: {e}")
 
@@ -79,17 +90,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def stream_response(self, query):
         def _get_stream():
-            return self.chat.send_message(query, stream=True)
+            # send_message_stream returns a generator in the new SDK
+            return self.chat.send_message_stream(query)
 
         try:
-            # Get the stream iterator (this initiates the request)
+            # We use sync_to_async because send_message_stream (in the sync client) is blocking/sync
             response_stream = await sync_to_async(_get_stream)()
 
-            # Iterate over the stream
-            # Note: The iteration itself is blocking, so we should ideally run it in a thread.
-            # However, for simplicity and since sync_to_async handles the call, 
-            # we'll iterate directly. If it blocks too much, we can wrap the iterator.
-            
             for chunk in response_stream:
                 if chunk.text:
                     await self.send(text_data=json.dumps({

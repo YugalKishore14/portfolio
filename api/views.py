@@ -1,7 +1,8 @@
 
 import os
 from dotenv import load_dotenv
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -12,7 +13,9 @@ from .serializers import PersonalDataSerializer, SkillCategorySerializer, Experi
 # Configure Gemini
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-genai.configure(api_key=GEMINI_API_KEY)
+# client initialized inside view or globally? 
+# Best to initialize lazily or globally. 
+gemini_client = genai.Client(api_key=GEMINI_API_KEY)
 
 class PersonalDataView(APIView):
     def get(self, request):
@@ -66,11 +69,19 @@ class ChatBotView(APIView):
             4. Keep answers brief and to the point suitable for a chat interface.
             """
             
-            model = genai.GenerativeModel('gemini-2.5-flash')
-            chat = model.start_chat(history=[
-                {"role": "user", "parts": [system_prompt]},
-                {"role": "model", "parts": ["Hello Sir, I am online and ready to assist you with inquiries regarding Mr. Verma's portfolio."]}
-            ])
+            chat = gemini_client.chats.create(
+                model='gemini-2.0-flash', 
+                history=[
+                    types.Content(
+                        role="user", 
+                        parts=[types.Part(text=system_prompt)]
+                    ),
+                    types.Content(
+                        role="model", 
+                        parts=[types.Part(text="Hello Sir, I am online and ready to assist you with inquiries regarding Mr. Verma's portfolio.")]
+                    )
+                ]
+            )
             
             response = chat.send_message(user_query)
             return Response({"response": response.text})
