@@ -1,14 +1,14 @@
-
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Cpu, Terminal } from "lucide-react";
+import { X, Send, Cpu, Terminal, Volume2, VolumeX } from "lucide-react";
 
 interface Message {
     id: number;
     text: string;
     sender: "user" | "jarvis";
+    isStreaming?: boolean;
 }
 
 const JarvisChatbot = () => {
@@ -16,7 +16,9 @@ const JarvisChatbot = () => {
     const [query, setQuery] = useState("");
     const [messages, setMessages] = useState<Message[]>([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [isMuted, setIsMuted] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const socketRef = useRef<WebSocket | null>(null);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -26,30 +28,170 @@ const JarvisChatbot = () => {
         scrollToBottom();
     }, [messages]);
 
+    useEffect(() => {
+        if (isOpen && !socketRef.current) {
+            // Initialize WebSocket connection
+            const ws = new WebSocket("ws://127.0.0.1:8000/ws/chat/");
+            socketRef.current = ws;
+
+            ws.onopen = () => {
+                console.log("Connected to Jarvis Terminal");
+            };
+
+
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+
+                if (data.type === 'start') {
+                    setIsLoading(false);
+                    const botMessage: Message = {
+                        id: Date.now(),
+                        text: "",
+                        sender: "jarvis",
+                        isStreaming: true
+                    };
+                    setMessages((prev) => [...prev, botMessage]);
+                } else if (data.type === 'chunk') {
+                    setMessages((prev) => {
+                        const lastMsgIndex = prev.length - 1;
+                        if (lastMsgIndex >= 0 && prev[lastMsgIndex].sender === 'jarvis') {
+                            const updatedMsg = {
+                                ...prev[lastMsgIndex],
+                                text: prev[lastMsgIndex].text + data.content
+                            };
+                            return [...prev.slice(0, lastMsgIndex), updatedMsg];
+                        }
+                        return prev;
+                    });
+                } else if (data.type === 'end') {
+                    setMessages((prev) => {
+                        const lastMsgIndex = prev.length - 1;
+                        if (lastMsgIndex >= 0) {
+                            const updatedMsg = { ...prev[lastMsgIndex], isStreaming: false };
+                            const newMessages = [...prev.slice(0, lastMsgIndex), updatedMsg];
+
+                            // Speak only after full message is received
+                            if (updatedMsg.sender === 'jarvis') {
+                                speak(updatedMsg.text);
+                            }
+                            return newMessages;
+                        }
+                        return prev;
+                    });
+                } else if (data.type === 'error' || data.error) {
+                    console.error("Jarvis Error:", data.error);
+                    const errorMessage: Message = {
+                        id: Date.now(),
+                        text: "Error processing request.",
+                        sender: "jarvis",
+                    };
+                    setMessages((prev) => [...prev, errorMessage]);
+                    speak("Error processing request.");
+                    setIsLoading(false);
+                } else if (data.message) {
+                    // Fallback for non-streaming messages
+                    const botMessage: Message = {
+                        id: Date.now(),
+                        text: data.message,
+                        sender: "jarvis",
+                    };
+                    setMessages((prev) => [...prev, botMessage]);
+                    speak(data.message);
+                    setIsLoading(false);
+                }
+            };
+
+
+            ws.onerror = (error) => {
+                console.error("WebSocket Error:", error);
+                const errorMessage: Message = {
+                    id: Date.now(),
+                    text: "Connection interrupted. Re-establishing uplink...",
+                    sender: "jarvis",
+                };
+                setMessages((prev) => [...prev, errorMessage]);
+                speak("Connection interrupted.");
+                setIsLoading(false);
+            };
+
+            ws.onclose = () => {
+                console.log("Disconnected from Jarvis Terminal");
+                socketRef.current = null;
+            };
+        }
+
+        return () => {
+            if (!isOpen && socketRef.current) {
+                socketRef.current.close();
+                socketRef.current = null;
+            }
+        };
+    }, [isOpen]);
+
+
     const speak = (text: string) => {
+        if (isMuted) return;
+
         if ("speechSynthesis" in window) {
-            window.speechSynthesis.cancel(); // Stop undefined previous speech
-            const utterance = new SpeechSynthesisUtterance(text);
-            // Try to find a good voice
+            window.speechSynthesis.cancel();
+
+            // Clean markdown formatting before speaking
+            const cleanText = text.replace(/[*#`_]/g, '');
+
+            const utterance = new SpeechSynthesisUtterance(cleanText);
             const voices = window.speechSynthesis.getVoices();
+
+            // Prioritize male voices
             const preferredVoice = voices.find(
                 (voice) =>
                     voice.name.includes("Male") ||
-                    voice.name.includes("Google US English") ||
-                    voice.name.includes("David")
+                    voice.name.includes("David") ||
+                    voice.name.includes("Daniel") ||
+                    voice.name.includes("Google US English")
             );
             if (preferredVoice) utterance.voice = preferredVoice;
 
-            utterance.pitch = 0.9; // Slightly lower pitch for autority
+            utterance.pitch = 0.8; // Deepen voice slightly
             utterance.rate = 1.0;
             window.speechSynthesis.speak(utterance);
         }
     };
 
+    const toggleMute = () => {
+        if (!isMuted) {
+            // If we are muting, stop any current speech
+            window.speechSynthesis.cancel();
+        }
+        setIsMuted(!isMuted);
+    };
+
+
+
+    const [showTooltip, setShowTooltip] = useState(true);
+    const [tooltipText, setTooltipText] = useState("");
+    const fullTooltipText = "Need info? I'm Nance Agent, Click to chat!";
+
+    useEffect(() => {
+        if (showTooltip) {
+            let i = 0;
+            const interval = setInterval(() => {
+                setTooltipText(fullTooltipText.slice(0, i + 1));
+                i++;
+                if (i > fullTooltipText.length) {
+                    clearInterval(interval);
+                    // Hide tooltip after a delay (e.g., 10 seconds after typing finishes)
+                    setTimeout(() => setShowTooltip(false), 10000);
+                }
+            }, 50);
+            return () => clearInterval(interval);
+        }
+    }, []);
+
     const handleOpen = () => {
         setIsOpen(true);
+        setShowTooltip(false);
         if (messages.length === 0) {
-            const greeting = "Hello Sir which resume data you want ?";
+            const greeting = "Nance is online. I'm MR.Verma's personal assistant. How may I assist you, Sir?";
             setMessages([{ id: 0, text: greeting, sender: "jarvis" }]);
             speak(greeting);
         }
@@ -69,37 +211,16 @@ const JarvisChatbot = () => {
         setQuery("");
         setIsLoading(true);
 
-        try {
-            const response = await fetch("http://127.0.0.1:8000/api/chatbot/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ query: userMessage.text }),
-            });
-
-            const data = await response.json();
-
-            if (data.response) {
-                const botMessage: Message = {
-                    id: Date.now() + 1,
-                    text: data.response,
-                    sender: "jarvis",
-                };
-                setMessages((prev) => [...prev, botMessage]);
-                speak(data.response);
-            } else {
-                throw new Error("No response from Jarvis");
-            }
-        } catch (error) {
+        if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+            socketRef.current.send(JSON.stringify({ message: userMessage.text }));
+        } else {
             const errorMessage: Message = {
                 id: Date.now() + 1,
-                text: "Apologies Sir, I am unable to connect to the mainframe at the moment.",
+                text: "Uplink offline. Unable to transmit.",
                 sender: "jarvis"
             };
             setMessages((prev) => [...prev, errorMessage]);
-            speak("Apologies Sir, I am unable to connect to the mainframe at the moment.");
-        } finally {
+            speak("Uplink offline.");
             setIsLoading(false);
         }
     };
@@ -108,19 +229,32 @@ const JarvisChatbot = () => {
         <>
             <AnimatePresence>
                 {!isOpen && (
-                    <motion.div
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        exit={{ scale: 0, opacity: 0 }}
-                        className="fixed bottom-6 right-6 z-50"
-                    >
-                        <button
-                            onClick={handleOpen}
-                            className="bg-cyan-500/20 hover:bg-cyan-500/40 text-cyan-400 border border-cyan-500/50 rounded-full p-4 shadow-[0_0_20px_rgba(34,211,238,0.3)] backdrop-blur-md transition-all group"
+                    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+                        {showTooltip && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: 10, scale: 0.9 }}
+                                className="relative bg-black/80 border border-cyan-500/50 text-cyan-400 px-4 py-2 rounded-lg backdrop-blur-md shadow-[0_0_15px_rgba(34,211,238,0.2)] mb-2 mr-2 max-w-[200px]"
+                            >
+                                <p className="text-sm font-mono typing-cursor">{tooltipText}</p>
+                                {/* Arrow pointing down-right */}
+                                <div className="absolute -bottom-2 right-6 w-4 h-4 bg-black/80 border-r border-b border-cyan-500/50 transform rotate-45"></div>
+                            </motion.div>
+                        )}
+                        <motion.div
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0, opacity: 0 }}
                         >
-                            <Cpu className="w-8 h-8 group-hover:rotate-180 transition-transform duration-700" />
-                        </button>
-                    </motion.div>
+                            <button
+                                onClick={handleOpen}
+                                className="bg-cyan-500/20 hover:bg-cyan-500/40 text-cyan-400 border border-cyan-500/50 rounded-full p-4 shadow-[0_0_20px_rgba(34,211,238,0.3)] backdrop-blur-md transition-all group"
+                            >
+                                <Cpu className="w-8 h-8 group-hover:rotate-180 transition-transform duration-700" />
+                            </button>
+                        </motion.div>
+                    </div>
                 )}
             </AnimatePresence>
 
@@ -147,12 +281,21 @@ const JarvisChatbot = () => {
                                     <Terminal className="w-5 h-5" />
                                     <span className="font-bold tracking-widest text-sm">J.A.R.V.I.S. TERMINAL</span>
                                 </div>
-                                <button
-                                    onClick={() => setIsOpen(false)}
-                                    className="text-cyan-500/50 hover:text-cyan-400 transition-colors"
-                                >
-                                    <X className="w-6 h-6" />
-                                </button>
+                                <div className="flex items-center gap-3">
+                                    <button
+                                        onClick={toggleMute}
+                                        className="text-cyan-500/50 hover:text-cyan-400 transition-colors"
+                                        title={isMuted ? "Unmute" : "Mute"}
+                                    >
+                                        {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                                    </button>
+                                    <button
+                                        onClick={() => setIsOpen(false)}
+                                        className="text-cyan-500/50 hover:text-cyan-400 transition-colors"
+                                    >
+                                        <X className="w-6 h-6" />
+                                    </button>
+                                </div>
                             </div>
 
                             {/* Chat Area */}
@@ -166,11 +309,16 @@ const JarvisChatbot = () => {
                                     >
                                         <div
                                             className={`max-w-[80%] p-3 rounded-lg border ${msg.sender === "user"
-                                                    ? "bg-cyan-900/20 border-cyan-500/30 text-cyan-100"
-                                                    : "bg-black border-cyan-500/50 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.1)]"
+                                                ? "bg-cyan-900/20 border-cyan-500/30 text-cyan-100"
+                                                : "bg-black border-cyan-500/50 text-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.1)]"
                                                 }`}
                                         >
-                                            <p className="text-sm md:text-base leading-relaxed">{msg.text}</p>
+                                            <p className="text-sm md:text-base leading-relaxed whitespace-pre-wrap">
+                                                {msg.text}
+                                                {msg.isStreaming && (
+                                                    <span className="inline-block w-2 h-4 bg-cyan-400 ml-1 animate-pulse" />
+                                                )}
+                                            </p>
                                         </div>
                                     </motion.div>
                                 ))}

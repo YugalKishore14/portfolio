@@ -1,5 +1,6 @@
 
 import os
+from dotenv import load_dotenv
 import google.generativeai as genai
 from rest_framework import viewsets, status
 from rest_framework.response import Response
@@ -9,7 +10,8 @@ from .models import PersonalData, SkillCategory, Experience, Project, Achievemen
 from .serializers import PersonalDataSerializer, SkillCategorySerializer, ExperienceSerializer, ProjectSerializer, AchievementSerializer
 
 # Configure Gemini
-GEMINI_API_KEY = "AIzaSyCy0NSLjVw8qY3S5aKMoFIqq5f8lQ8IWA0"
+load_dotenv()
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
 
 class PersonalDataView(APIView):
