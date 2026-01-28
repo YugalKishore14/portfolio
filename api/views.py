@@ -70,7 +70,7 @@ class ChatBotView(APIView):
             """
             
             chat = gemini_client.chats.create(
-                model='gemini-2.0-flash', 
+                model='gemini-2.5-flash', 
                 history=[
                     types.Content(
                         role="user", 

@@ -47,15 +47,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
             # Use gemini-2.0-flash if available, otherwise gemini-1.5-flash. 
             # We'll use 2.0-flash as it is the latest generally available/experimental model suited for this.
             self.chat = self.client.chats.create(
-                model='gemini-2.0-flash', 
+                model='gemini-2.5-flash', 
                 history=[
                     types.Content(
                         role="user", 
-                        parts=[types.Part(text=system_prompt)]
+                        parts=[types.Part.from_text(text=system_prompt)]
                     ),
                     types.Content(
                         role="model", 
-                        parts=[types.Part(text="Hello! I am Jarvis, Aniket's digital assistant. How can I help you learn more about his work today?")]
+                        parts=[types.Part.from_text(text="Hello! I am Jarvis, Aniket's digital assistant. How can I help you learn more about his work today?")]
                     )
                 ]
             )
