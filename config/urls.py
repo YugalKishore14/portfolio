@@ -15,9 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.conf import settings
+from django.views.static import serve
+import os
+
+def serve_react(request, path):
+    # If path refers to a file that exists, serve it
+    filepath = settings.BASE_DIR / 'ui/out' / path
+    if path and os.path.exists(filepath):
+        return serve(request, path, document_root=settings.BASE_DIR / 'ui/out')
+    # Otherwise, serve index.html for SPA routing (or if file missing but we want fallback)
+    # However, for Next.js static export, usually we want 404 if asset missing, but index.html for routes.
+    # Since checking 'is route' is hard, falling back to index.html is standard SPA behavior.
+    return serve(request, 'index.html', document_root=settings.BASE_DIR / 'ui/out')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
+    re_path(r'^(?P<path>.*)$', serve_react),
 ]
