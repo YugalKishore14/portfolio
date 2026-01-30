@@ -1,9 +1,18 @@
 import { PersonalData, Skill, Experience, Project, Achievement } from './types';
 
-const API_BASE_URL = "http://127.0.0.1:8000/api";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+// Debug: Log the API URL being used
+console.log('API_BASE_URL:', API_BASE_URL);
 
 export async function getPersonalData(): Promise<PersonalData> {
-    const res = await fetch(`${API_BASE_URL}/personal-data/`);
+    const url = `${API_BASE_URL}/personal-data/`;
+    console.log('Fetching from:', url);
+
+    const res = await fetch(url, {
+        next: { revalidate: 60 }, // Cache for 60 seconds
+        signal: AbortSignal.timeout(30000), // 30 second timeout
+    });
     if (!res.ok) throw new Error('Failed to fetch personal data');
     const data = await res.json();
     // Ensure nested fields are present even if API returns nulls/defaults

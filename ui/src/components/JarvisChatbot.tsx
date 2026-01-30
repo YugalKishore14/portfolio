@@ -31,7 +31,8 @@ const JarvisChatbot = () => {
     useEffect(() => {
         if (isOpen && !socketRef.current) {
             // Initialize WebSocket connection
-            const ws = new WebSocket("ws://127.0.0.1:8000/ws/chat/");
+            const wsUrl = process.env.NEXT_PUBLIC_WS_URL || "ws://127.0.0.1:8000/ws/chat/";
+            const ws = new WebSocket(wsUrl);
             socketRef.current = ws;
 
             ws.onopen = () => {
