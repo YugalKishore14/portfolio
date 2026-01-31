@@ -29,6 +29,13 @@ ALLOWED_HOSTS = ['*']
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+# CSRF trusted origins for production
+CSRF_TRUSTED_ORIGINS = [
+    'https://aniketverma.xyz',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+]
+
 
 # Application definition
 
