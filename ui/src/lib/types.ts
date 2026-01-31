@@ -47,3 +47,23 @@ export interface Achievement {
     label: string;
     description: string;
 }
+
+export interface BlogPost {
+    id: number;
+    title: string;
+    slug: string;
+    excerpt: string;
+    content?: string; // Only in detail view
+    featured_image_url: string | null;
+    author: string;
+    category: string;
+    tags: string[];
+    read_time: number;
+    views: number;
+    created_at: string;
+    published_at: string;
+    updated_at?: string;
+    meta_description?: string;
+    meta_keywords?: string;
+}
+

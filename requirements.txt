@@ -54,3 +54,5 @@ uritemplate==4.2.0
 urllib3==2.6.3
 zope.interface==8.2
 whitenoise==6.11.0
+django-ckeditor==6.7.0
+Pillow==10.2.0

@@ -6,9 +6,14 @@ from google.genai import types
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.decorators import action
 from django.conf import settings
-from .models import PersonalData, SkillCategory, Experience, Project, Achievement
-from .serializers import PersonalDataSerializer, SkillCategorySerializer, ExperienceSerializer, ProjectSerializer, AchievementSerializer
+from django.db.models import F
+from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost
+from .serializers import (
+    PersonalDataSerializer, SkillCategorySerializer, ExperienceSerializer, 
+    ProjectSerializer, AchievementSerializer, BlogPostListSerializer, BlogPostDetailSerializer
+)
 
 # Configure Gemini
 load_dotenv()
@@ -40,6 +45,46 @@ class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
 class AchievementViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Achievement.objects.all()
     serializer_class = AchievementSerializer
+
+class BlogPostViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    ViewSet for blog posts
+    - List: Returns all published blog posts
+    - Retrieve: Returns a single blog post by slug and increments view count
+    - Categories: Returns list of unique categories
+    """
+    queryset = BlogPost.objects.filter(status='published').order_by('-published_at')
+    lookup_field = 'slug'
+    
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return BlogPostDetailSerializer
+        return BlogPostListSerializer
+    
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        # Increment view count
+        BlogPost.objects.filter(pk=instance.pk).update(views=F('views') + 1)
+        instance.refresh_from_db()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+    
+    @action(detail=False, methods=['get'])
+    def categories(self, request):
+        """Get all unique blog categories"""
+        categories = BlogPost.objects.filter(status='published').values_list('category', flat=True).distinct()
+        return Response({'categories': list(categories)})
+    
+    @action(detail=False, methods=['get'])
+    def by_category(self, request):
+        """Filter blog posts by category"""
+        category = request.query_params.get('category')
+        if not category:
+            return Response({'error': 'Category parameter is required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        posts = self.queryset.filter(category=category)
+        serializer = self.get_serializer(posts, many=True)
+        return Response(serializer.data)
 
 class ChatBotView(APIView):
     def post(self, request):
@@ -89,3 +134,4 @@ class ChatBotView(APIView):
         except Exception as e:
             print(f"Gemini Error: {e}")
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+

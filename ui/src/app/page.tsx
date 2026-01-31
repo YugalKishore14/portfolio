@@ -6,12 +6,13 @@ import Hero from "@/components/Hero";
 import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
+import Blog from "@/components/Blog";
 import Achievements from "@/components/Achievements";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import { getPersonalData, getSkills, getExperience, getProjects, getAchievements } from "@/lib/api";
-import type { PersonalData, Skill, Experience as ExperienceType, Project, Achievement } from "@/lib/types";
+import { getPersonalData, getSkills, getExperience, getProjects, getAchievements, getBlogPosts } from "@/lib/api";
+import type { PersonalData, Skill, Experience as ExperienceType, Project, Achievement, BlogPost } from "@/lib/types";
 
 export default function Home() {
   const [personalData, setPersonalData] = useState<PersonalData | null>(null);
@@ -19,18 +20,20 @@ export default function Home() {
   const [experience, setExperience] = useState<ExperienceType[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [achievements, setAchievements] = useState<Achievement[]>([]);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const [personalDataRes, skillsRes, experienceRes, projectsRes, achievementsRes] = await Promise.all([
+        const [personalDataRes, skillsRes, experienceRes, projectsRes, achievementsRes, blogPostsRes] = await Promise.all([
           getPersonalData(),
           getSkills(),
           getExperience(),
           getProjects(),
           getAchievements(),
+          getBlogPosts(),
         ]);
 
         setPersonalData(personalDataRes);
@@ -38,6 +41,7 @@ export default function Home() {
         setExperience(experienceRes);
         setProjects(projectsRes);
         setAchievements(achievementsRes);
+        setBlogPosts(blogPostsRes);
       } catch (err) {
         console.error('Error fetching data:', err);
         setError(err instanceof Error ? err.message : 'Failed to load data');
@@ -78,6 +82,7 @@ export default function Home() {
       <Skills data={skills} />
       <Experience data={experience} />
       <Projects data={projects} />
+      <Blog data={blogPosts} />
       <Achievements data={achievements} />
       <About data={personalData} />
       <Contact data={personalData} />

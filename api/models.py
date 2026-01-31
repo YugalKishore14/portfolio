@@ -1,4 +1,6 @@
 from django.db import models
+from ckeditor_uploader.fields import RichTextUploadingField
+from django.utils.text import slugify
 
 class PersonalData(models.Model):
     name = models.CharField(max_length=255)
@@ -51,3 +53,44 @@ class Achievement(models.Model):
 
     def __str__(self):
         return self.label
+
+class BlogPost(models.Model):
+    STATUS_CHOICES = [
+        ('draft', 'Draft'),
+        ('published', 'Published'),
+    ]
+    
+    title = models.CharField(max_length=255, help_text="Blog post title")
+    slug = models.SlugField(max_length=255, unique=True, blank=True, help_text="URL-friendly version of title")
+    excerpt = models.TextField(max_length=500, help_text="Short description for preview")
+    content = RichTextUploadingField(config_name='blog', help_text="Main blog content with rich text formatting")
+    featured_image = models.ImageField(upload_to='blog/featured/', blank=True, null=True, help_text="Featured image for blog post")
+    author = models.CharField(max_length=255, default="Aniket Verma")
+    tags = models.JSONField(default=list, help_text="List of tags (e.g., ['Python', 'Django', 'AI'])")
+    category = models.CharField(max_length=100, default="Technology", help_text="Blog category")
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    read_time = models.IntegerField(default=5, help_text="Estimated read time in minutes")
+    views = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    published_at = models.DateTimeField(null=True, blank=True)
+    
+    # SEO fields
+    meta_description = models.CharField(max_length=160, blank=True, help_text="SEO meta description")
+    meta_keywords = models.CharField(max_length=255, blank=True, help_text="SEO keywords")
+    
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Blog Post'
+        verbose_name_plural = 'Blog Posts'
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        if not self.meta_description:
+            self.meta_description = self.excerpt[:160]
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.title
+

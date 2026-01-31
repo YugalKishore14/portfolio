@@ -1,4 +1,4 @@
-import { PersonalData, Skill, Experience, Project, Achievement } from './types';
+import { PersonalData, Skill, Experience, Project, Achievement, BlogPost } from './types';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -43,3 +43,38 @@ export async function getAchievements(): Promise<Achievement[]> {
     if (!res.ok) throw new Error('Failed to fetch achievements');
     return res.json();
 }
+
+export async function getBlogPosts(): Promise<BlogPost[]> {
+    const res = await fetch(`${API_BASE_URL}/blog/`, {
+        next: { revalidate: 300 }, // Cache for 5 minutes
+    });
+    if (!res.ok) throw new Error('Failed to fetch blog posts');
+    return res.json();
+}
+
+export async function getBlogPost(slug: string): Promise<BlogPost> {
+    // Use the environment variable or fallback to localhost
+    const baseUrl = API_BASE_URL || 'http://localhost:8000/api';
+    const url = `${baseUrl}/blog/${slug}/`;
+
+    console.log('Fetching blog post from:', url);
+
+    const res = await fetch(url, {
+        cache: 'no-store', // Don't cache for now to ensure fresh data
+    });
+
+    if (!res.ok) {
+        console.error(`Failed to fetch blog post: ${res.status} ${res.statusText}`);
+        throw new Error(`Failed to fetch blog post: ${res.statusText}`);
+    }
+
+    return res.json();
+}
+
+export async function getBlogCategories(): Promise<string[]> {
+    const res = await fetch(`${API_BASE_URL}/blog/categories/`);
+    if (!res.ok) throw new Error('Failed to fetch blog categories');
+    const data = await res.json();
+    return data.categories;
+}
+

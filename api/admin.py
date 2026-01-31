@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import PersonalData, SkillCategory, Experience, Project, Achievement
+from django.utils import timezone
+from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost
 
 @admin.register(PersonalData)
 class PersonalDataAdmin(admin.ModelAdmin):
@@ -22,3 +23,45 @@ class ProjectAdmin(admin.ModelAdmin):
 @admin.register(Achievement)
 class AchievementAdmin(admin.ModelAdmin):
     list_display = ('metric', 'label')
+
+@admin.register(BlogPost)
+class BlogPostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'category', 'status', 'views', 'created_at', 'published_at')
+    list_filter = ('status', 'category', 'created_at', 'published_at')
+    search_fields = ('title', 'excerpt', 'content', 'author')
+    prepopulated_fields = {'slug': ('title',)}
+    readonly_fields = ('views', 'created_at', 'updated_at')
+    date_hierarchy = 'created_at'
+    
+    fieldsets = (
+        ('Basic Information', {
+            'fields': ('title', 'slug', 'author', 'category', 'status')
+        }),
+        ('Content', {
+            'fields': ('excerpt', 'content', 'featured_image')
+        }),
+        ('Metadata', {
+            'fields': ('tags', 'read_time', 'views')
+        }),
+        ('SEO', {
+            'fields': ('meta_description', 'meta_keywords'),
+            'classes': ('collapse',)
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at', 'published_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    actions = ['publish_posts', 'unpublish_posts']
+    
+    def publish_posts(self, request, queryset):
+        updated = queryset.update(status='published', published_at=timezone.now())
+        self.message_user(request, f'{updated} post(s) successfully published.')
+    publish_posts.short_description = "Publish selected posts"
+    
+    def unpublish_posts(self, request, queryset):
+        updated = queryset.update(status='draft', published_at=None)
+        self.message_user(request, f'{updated} post(s) unpublished.')
+    unpublish_posts.short_description = "Unpublish selected posts"
+

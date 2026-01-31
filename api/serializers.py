@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import PersonalData, SkillCategory, Experience, Project, Achievement
+from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost
 
 class PersonalDataSerializer(serializers.ModelSerializer):
     class Meta:
@@ -42,3 +42,37 @@ class AchievementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Achievement
         fields = '__all__'
+
+class BlogPostListSerializer(serializers.ModelSerializer):
+    """Serializer for blog post list view"""
+    featured_image_url = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = BlogPost
+        fields = ['id', 'title', 'slug', 'excerpt', 'featured_image_url', 'author', 
+                  'category', 'tags', 'read_time', 'views', 'created_at', 'published_at']
+    
+    def get_featured_image_url(self, obj):
+        if obj.featured_image:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.featured_image.url)
+        return None
+
+class BlogPostDetailSerializer(serializers.ModelSerializer):
+    """Serializer for blog post detail view"""
+    featured_image_url = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = BlogPost
+        fields = ['id', 'title', 'slug', 'excerpt', 'content', 'featured_image_url', 
+                  'author', 'category', 'tags', 'read_time', 'views', 'created_at', 
+                  'updated_at', 'published_at', 'meta_description', 'meta_keywords']
+    
+    def get_featured_image_url(self, obj):
+        if obj.featured_image:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.featured_image.url)
+        return None
+
