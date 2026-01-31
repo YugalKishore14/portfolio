@@ -45,11 +45,24 @@ export async function getAchievements(): Promise<Achievement[]> {
 }
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
-    const res = await fetch(`${API_BASE_URL}/blog/`, {
-        next: { revalidate: 300 }, // Cache for 5 minutes
-    });
-    if (!res.ok) throw new Error('Failed to fetch blog posts');
-    return res.json();
+    // Use localhost during build (server-side), production URL at runtime (client-side)
+    const baseUrl = typeof window === 'undefined'
+        ? 'http://localhost:8000/api'  // Server-side (build time)
+        : (API_BASE_URL || 'http://localhost:8000/api'); // Client-side
+
+    try {
+        const res = await fetch(`${baseUrl}/blog/`, {
+            next: { revalidate: 300 }, // Cache for 5 minutes
+        });
+        if (!res.ok) {
+            console.error(`Failed to fetch blog posts: ${res.status}`);
+            return [];
+        }
+        return res.json();
+    } catch (error) {
+        console.error('Error fetching blog posts:', error);
+        return [];
+    }
 }
 
 export async function getBlogPost(slug: string): Promise<BlogPost> {
