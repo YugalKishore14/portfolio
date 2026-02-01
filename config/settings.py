@@ -40,6 +40,7 @@ CSRF_TRUSTED_ORIGINS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',  # Must be before django.contrib.admin
     'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -54,6 +55,100 @@ INSTALLED_APPS = [
     'api',
     'channels',
 ]
+
+# Jazzmin Admin Theme Configuration
+JAZZMIN_SETTINGS = {
+    # Title and branding
+    "site_title": "AV.hq Admin",
+    "site_header": "AV.hq",
+    "site_brand": "AV.hq",
+    "site_logo": None,
+    "login_logo": None,
+    "welcome_sign": "Welcome to the Control Center",
+    "copyright": "Aniket Verma",
+    
+    # Top menu links
+    "topmenu_links": [
+        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Portfolio", "url": "/", "new_window": True},
+        {"model": "auth.User"},
+    ],
+    
+    # User menu
+    "usermenu_links": [
+        {"name": "View Portfolio", "url": "/", "new_window": True, "icon": "fas fa-globe"},
+    ],
+    
+    # Side menu configuration
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "hide_apps": [],
+    "hide_models": [],
+    
+    # Custom icons for apps/models
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "api.PersonalData": "fas fa-id-card",
+        "api.SkillCategory": "fas fa-code",
+        "api.Experience": "fas fa-briefcase",
+        "api.Project": "fas fa-project-diagram",
+        "api.Achievement": "fas fa-trophy",
+        "api.BlogPost": "fas fa-blog",
+    },
+    "default_icon_parents": "fas fa-folder",
+    "default_icon_children": "fas fa-circle",
+    
+    # Related Modal
+    "related_modal_active": True,
+    
+    # UI Tweaks
+    "custom_css": None,
+    "custom_js": None,
+    "use_google_fonts_cdn": True,
+    "show_ui_builder": False,
+    
+    # Change view
+    "changeform_format": "horizontal_tabs",
+    "changeform_format_overrides": {
+        "auth.user": "collapsible",
+        "auth.group": "vertical_tabs",
+    },
+}
+
+# Jazzmin UI Tweaks - Dark Cyan Theme
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": "navbar-dark",
+    "accent": "accent-info",
+    "navbar": "navbar-dark navbar-secondary",
+    "no_navbar_border": True,
+    "navbar_fixed": True,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": True,
+    "sidebar": "sidebar-dark-info",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme": "cyborg",  # Dark theme
+    "dark_mode_theme": "cyborg",
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
