@@ -69,9 +69,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost> {
 
     console.log('Fetching blog post from:', url);
 
-    const res = await fetch(url, {
-        cache: 'no-store', // Don't cache for now to ensure fresh data
-    });
+    const res = await fetch(url);
 
     if (!res.ok) {
         console.error(`Failed to fetch blog post: ${res.status} ${res.statusText}`);

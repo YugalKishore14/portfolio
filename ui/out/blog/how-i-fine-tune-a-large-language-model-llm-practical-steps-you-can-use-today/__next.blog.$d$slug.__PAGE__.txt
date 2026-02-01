@@ -1,7 +1,93 @@
 1:"$Sreact.fragment"
-2:I[74021,["/_next/static/chunks/4911907068249cad.js","/_next/static/chunks/2383faa1982b04db.js","/_next/static/chunks/fd5852dec193ad14.js"],"default"]
-4:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
-5:"$Sreact.suspense"
-0:{"buildId":"kM6cRi5s2IJnMSDjUmqae","rsc":["$","$1","c",{"children":[["$","$L2",null,{"params":"$@3","initialPost":null}],[["$","script","script-0",{"src":"/_next/static/chunks/fd5852dec193ad14.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"loading":null,"isPartial":false}
+2:I[74021,["/_next/static/chunks/4911907068249cad.js","/_next/static/chunks/2383faa1982b04db.js","/_next/static/chunks/fc07566903636968.js"],"default"]
+7:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
+8:"$Sreact.suspense"
+4:T1022,<p>Want to get better performance from an LLM without reinventing the wheel? Here&rsquo;s a clear, practical workflow I use to fine-tune models &mdash; useful for prod prototypes, domain-adapted agents, or custom assistants.</p>
+
+<p>TL;DR: collect clean domain data &rarr; choose a base model &amp; approach (full-finetune vs LoRA/PEFT) &rarr; preprocess &amp; format prompts &rarr; train with smart hyperparams &rarr; validate + safety checks &rarr; deploy &amp; monitor.</p>
+
+<p>1) Start with a clear goal</p>
+
+<p>What do you want the model to do differently? (e.g., medical Q&amp;A tone, summarise lab reports, code review assistant). Define success metrics &mdash; accuracy, helpfulness, fewer hallucinations, or reduced latency.</p>
+
+<p>2) Data: quality &gt; quantity</p>
+
+<p>Gather representative datasets: user logs, manuals, expert answers, annotated examples.</p>
+
+<p>Clean it: remove PII, fix formatting, normalize units, dedupe.</p>
+
+<p>Prefer high-quality few-shot examples over huge noisy corpora.</p>
+
+<p>Structure data for the training objective: instruction&ndash;response pairs for instruction tuning, (prompt, completion) for supervised finetuning.</p>
+
+<p>3) Choose the right tuning strategy</p>
+
+<p>Full finetuning: best when you can afford compute and want maximal performance. More risk of catastrophic forgetting.</p>
+
+<p>LoRA / PEFT (parameter-efficient finetuning): change a tiny fraction of weights &mdash; much cheaper, faster, and easy to revert. Great default for production.</p>
+
+<p>Prompt tuning / adapters: even lighter-weight options for resource constrained setups.</p>
+
+<p>Consider instruction tuning if you want generalized instruction-following, or supervised finetuning if you have lots of curated Q&rarr;A pairs.</p>
+
+<p>4) Prompt &amp; tokenization design</p>
+
+<p>Use consistent instruction templates (system prompt, user prompt, expected response).</p>
+
+<p>Verify tokenization &mdash; long domain docs might hit context limits. Trim or chunk wisely (sliding windows or hierarchical summarization).</p>
+
+<p>5) Training best practices</p>
+
+<p>Use mixed precision (fp16/bf16) to speed up and reduce memory.</p>
+
+<p>Start with small learning rates; PEFT typically uses lower LR than full finetuning.</p>
+
+<p>Use gradient accumulation for large batches if GPU memory is limited.</p>
+
+<p>Monitor loss and qualitative outputs &mdash; loss alone can be misleading.</p>
+
+<p>Use early stopping and keep checkpoints.</p>
+
+<p>6) Evaluation &mdash; automatic + human</p>
+
+<p>Build validation sets that match real usage.</p>
+
+<p>Use automated metrics (BLEU/ROUGE for generation is weak), but focus on task-specific metrics (accuracy, F1, intent correctness).</p>
+
+<p>Add human review for quality, alignment, and safety &mdash; sample outputs across failure modes.</p>
+
+<p>Test for hallucinations by crafting adversarial prompts.</p>
+
+<p>7) Safety, privacy &amp; legal</p>
+
+<p>Remove or redact PII before training.</p>
+
+<p>Add guardrails: a separate safety classifier or instruction-following constraints.</p>
+
+<p>Keep a rollback plan &mdash; track which weights are changed and be able to revert to base model.</p>
+
+<p>8) Deployment &amp; monitoring</p>
+
+<p>Package model with versioned artifacts (model + tokenizer + config).</p>
+
+<p>Serve via a scalable endpoint (FastAPI/Gunicorn, or managed infra).</p>
+
+<p>Monitor latency, error rates, drift in input distribution, and user feedback.</p>
+
+<p>Retrain/correct iteratively &mdash; collect failure examples and incorporate them into next round.</p>
+
+<p>9) Cost &amp; infra considerations</p>
+
+<p>PEFT + quantization (8-bit) lowers serving cost and makes edge deployment possible.</p>
+
+<p>Use spot instances for training if you can tolerate interruptions.</p>
+
+<p>Measure cost per query vs benefit &mdash; sometimes clever prompting + retrieval augmentation beats heavy finetuning.</p>
+
+<p>10) Iterate</p>
+
+<p>Fine-tuning is not a one-shot job. Use real user interactions, telemetry, and evaluation to prioritize the next round of data collection and model updates.</p>0:{"buildId":"VuHqWCD60Uj3xDEmWq4eM","rsc":["$","$1","c",{"children":[["$","$L2",null,{"params":"$@3","initialPost":{"id":1,"title":"How I fine-tune a Large Language Model (LLM) — practical steps you can use today","slug":"how-i-fine-tune-a-large-language-model-llm-practical-steps-you-can-use-today","excerpt":"How I fine-tune a Large Language Model (LLM) — practical steps you can use today","content":"$4","featured_image_url":null,"author":"Aniket Verma","category":"Technology","tags":["Python","Langchain","LLM"],"read_time":5,"views":6,"created_at":"2026-01-31T12:02:35.591662Z","updated_at":"2026-01-31T12:02:35.591674Z","published_at":"2026-01-31T12:00:52Z","meta_description":"How I fine-tune a Large Language Model (LLM) — practical steps you can use today","meta_keywords":""}}],["$L5"],"$L6"]}],"loading":null,"isPartial":false}
 3:{"slug":"how-i-fine-tune-a-large-language-model-llm-practical-steps-you-can-use-today"}
-6:null
+5:["$","script","script-0",{"src":"/_next/static/chunks/fc07566903636968.js","async":true}]
+6:["$","$L7",null,{"children":["$","$8",null,{"name":"Next.MetadataOutlet","children":"$@9"}]}]
+9:null
