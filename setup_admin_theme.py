@@ -13,27 +13,32 @@ django.setup()
 
 from admin_interface.models import Theme
 
-# Portfolio color palette
+# Refined color palette - professional and readable
 COLORS = {
     # Dark backgrounds
-    'bg_primary': '#020617',      # slate-950
-    'bg_secondary': '#0f172a',    # slate-900
-    'bg_card': '#1e293b',         # slate-800
-    'bg_hover': '#334155',        # slate-700
+    'header_bg': '#1a2332',         # Dark blue-gray header
+    'module_bg': '#2d3748',         # Slightly lighter for modules
     
-    # Cyan accents
-    'cyan_primary': '#22d3ee',    # cyan-400
-    'cyan_secondary': '#06b6d4',  # cyan-500
-    'cyan_dark': '#0891b2',       # cyan-600
+    # Text colors - high contrast for readability
+    'header_text': '#ffffff',       # White for header
+    'module_text': '#ffffff',       # White for module headers
+    'body_text': '#e2e8f0',         # Light gray for body
     
-    # Text colors
-    'text_primary': '#e2e8f0',    # slate-200
-    'text_secondary': '#94a3b8',  # slate-400
+    # Accent colors - used sparingly
+    'link_color': '#2d3748',        # Teal/cyan for links
+    'link_hover': '#2d3748',        # Lighter teal on hover
     
-    # Other
-    'success': '#10b981',         # emerald-500
-    'danger': '#ef4444',          # red-500
-    'warning': '#f59e0b',         # amber-500
+    # Button colors - professional look
+    'save_btn_bg': '#38a169',       # Green for save (success color)
+    'save_btn_hover': '#2f855a',    # Darker green on hover
+    'save_btn_text': '#ffffff',     # White text
+    
+    'delete_btn_bg': '#e53e3e',     # Red for delete
+    'delete_btn_hover': '#c53030',  # Darker red on hover
+    
+    # Selected/active states
+    'selected_bg': '#4a5568',       # Gray for selected items
+    'selected_text': '#ffffff',     # White text
 }
 
 def setup_theme():
@@ -58,42 +63,42 @@ def setup_theme():
     theme.title = "AV.hq Admin"
     theme.title_visible = True
     
-    # Header colors (top bar)
-    theme.css_header_background_color = COLORS['bg_secondary']
-    theme.css_header_text_color = COLORS['cyan_primary']
-    theme.css_header_link_color = COLORS['cyan_primary']
-    theme.css_header_link_hover_color = COLORS['text_primary']
+    # Header colors (top bar) - Dark with white text
+    theme.css_header_background_color = COLORS['header_bg']
+    theme.css_header_text_color = COLORS['header_text']
+    theme.css_header_link_color = COLORS['header_text']
+    theme.css_header_link_hover_color = COLORS['link_color']
     
-    # Module header colors (section headers in admin)
-    theme.css_module_background_color = COLORS['bg_card']
-    theme.css_module_text_color = COLORS['cyan_primary']
-    theme.css_module_link_color = COLORS['cyan_primary']
-    theme.css_module_link_hover_color = COLORS['text_primary']
+    # Module header colors (section headers) - Slightly lighter with white text
+    theme.css_module_background_color = COLORS['module_bg']
+    theme.css_module_text_color = COLORS['module_text']
+    theme.css_module_link_color = COLORS['module_text']
+    theme.css_module_link_hover_color = COLORS['link_color']
     theme.css_module_rounded_corners = True
     
     # Module selected (active) colors
-    theme.css_module_selected_background_color = COLORS['cyan_dark']
-    theme.css_module_selected_text_color = COLORS['bg_primary']
+    theme.css_module_selected_background_color = COLORS['selected_bg']
+    theme.css_module_selected_text_color = COLORS['selected_text']
     
-    # Generic link colors
-    theme.css_generic_link_color = COLORS['cyan_primary']
-    theme.css_generic_link_hover_color = COLORS['cyan_secondary']
-    theme.css_generic_link_active_color = COLORS['text_primary']
+    # Generic link colors - Teal accent
+    theme.css_generic_link_color = COLORS['link_color']
+    theme.css_generic_link_hover_color = COLORS['link_hover']
+    theme.css_generic_link_active_color = COLORS['link_hover']
     
-    # Save button colors
-    theme.css_save_button_background_color = COLORS['cyan_primary']
-    theme.css_save_button_background_hover_color = COLORS['cyan_secondary']
-    theme.css_save_button_text_color = COLORS['bg_primary']
+    # Save button colors - Green (professional, indicates success)
+    theme.css_save_button_background_color = COLORS['save_btn_bg']
+    theme.css_save_button_background_hover_color = COLORS['save_btn_hover']
+    theme.css_save_button_text_color = COLORS['save_btn_text']
     
-    # Delete button colors
-    theme.css_delete_button_background_color = COLORS['danger']
-    theme.css_delete_button_background_hover_color = '#dc2626'
-    theme.css_delete_button_text_color = COLORS['text_primary']
+    # Delete button colors - Red (danger)
+    theme.css_delete_button_background_color = COLORS['delete_btn_bg']
+    theme.css_delete_button_background_hover_color = COLORS['delete_btn_hover']
+    theme.css_delete_button_text_color = '#ffffff'
     
     # Related modal settings
     theme.related_modal_active = True
-    theme.related_modal_background_color = COLORS['bg_primary']
-    theme.related_modal_background_opacity = '0.8'
+    theme.related_modal_background_color = '#000000'
+    theme.related_modal_background_opacity = '0.7'
     theme.related_modal_rounded_corners = True
     theme.related_modal_close_button_visible = True
     
@@ -124,12 +129,16 @@ def setup_theme():
     theme.save()
     
     print(f"✅ Theme '{theme.name}' configured successfully!")
-    print(f"   - Header: {COLORS['bg_secondary']} with {COLORS['cyan_primary']} text")
-    print(f"   - Modules: {COLORS['bg_card']} with {COLORS['cyan_primary']} headers")
-    print(f"   - Links: {COLORS['cyan_primary']}")
-    print(f"   - Buttons: {COLORS['cyan_primary']} background")
     print("")
-    print("🎨 Restart your Django server to see the changes!")
+    print("🎨 Color Scheme:")
+    print(f"   Header:      {COLORS['header_bg']} (dark blue-gray)")
+    print(f"   Modules:     {COLORS['module_bg']} (slate gray)")
+    print(f"   Text:        White for readability")
+    print(f"   Links:       {COLORS['link_color']} (teal accent)")
+    print(f"   Save Button: {COLORS['save_btn_bg']} (green)")
+    print(f"   Delete:      {COLORS['delete_btn_bg']} (red)")
+    print("")
+    print("🔄 Restart your Django server to see the changes!")
 
 if __name__ == '__main__':
     setup_theme()
