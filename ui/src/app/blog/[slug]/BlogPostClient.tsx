@@ -8,14 +8,22 @@ import { Calendar, Clock, Eye, Tag, ArrowLeft } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-export default function BlogPostClient({ params }: { params: Promise<{ slug: string }> }) {
+export default function BlogPostClient({
+    params,
+    initialPost = null
+}: {
+    params: Promise<{ slug: string }>,
+    initialPost?: BlogPost | null
+}) {
     const router = useRouter();
     const { slug } = use(params); // Unwrap the Promise
-    const [post, setPost] = useState<BlogPost | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [post, setPost] = useState<BlogPost | null>(initialPost);
+    const [loading, setLoading] = useState(!initialPost);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        if (initialPost) return;
+
         async function fetchPost() {
             try {
                 const data = await getBlogPost(slug);
@@ -28,7 +36,7 @@ export default function BlogPostClient({ params }: { params: Promise<{ slug: str
             }
         }
         fetchPost();
-    }, [slug]);
+    }, [slug, initialPost]);
 
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('en-US', {

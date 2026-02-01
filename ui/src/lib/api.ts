@@ -45,10 +45,7 @@ export async function getAchievements(): Promise<Achievement[]> {
 }
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
-    // Use localhost during build (server-side), production URL at runtime (client-side)
-    const baseUrl = typeof window === 'undefined'
-        ? 'http://localhost:8000/api'  // Server-side (build time)
-        : (API_BASE_URL || 'http://localhost:8000/api'); // Client-side
+    const baseUrl = API_BASE_URL || 'http://localhost:8000/api';
 
     try {
         const res = await fetch(`${baseUrl}/blog/`, {
@@ -66,8 +63,8 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 }
 
 export async function getBlogPost(slug: string): Promise<BlogPost> {
-    // Use the environment variable or fallback to localhost
     const baseUrl = API_BASE_URL || 'http://localhost:8000/api';
+
     const url = `${baseUrl}/blog/${slug}/`;
 
     console.log('Fetching blog post from:', url);
