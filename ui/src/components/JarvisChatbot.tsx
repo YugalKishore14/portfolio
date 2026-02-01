@@ -230,7 +230,7 @@ const JarvisChatbot = () => {
         <>
             {/* Floating Button - Always present container for proper fixed positioning */}
             {!isOpen && (
-                <div className="fixed bottom-6 right-4 md:bottom-8 md:right-8 z-[100] flex flex-col items-end gap-2">
+                <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[100] flex flex-col items-end gap-2">
                     <AnimatePresence>
                         {showTooltip && (
                             <motion.div
