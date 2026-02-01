@@ -40,6 +40,8 @@ CSRF_TRUSTED_ORIGINS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_interface',  # Must be before django.contrib.admin
+    'colorfield',
     'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -54,6 +56,10 @@ INSTALLED_APPS = [
     'api',
     'channels',
 ]
+
+# Required for django-admin-interface
+X_FRAME_OPTIONS = "SAMEORIGIN"
+SILENCED_SYSTEM_CHECKS = ["security.W019"]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
