@@ -53,13 +53,15 @@ export default function Contact({ data }: { data: PersonalData }) {
                             <Send className="w-4 h-4 text-slate-600 group-hover:text-cyan-500 -rotate-45" />
                         </a>
 
-                        <a href={personalData.contact.resumeUrl} download className="flex items-center justify-between p-6 bg-gradient-to-r from-cyan-900/20 to-slate-900/50 border border-cyan-900/50 hover:border-cyan-500 rounded-xl transition-all group">
-                            <span className="flex items-center gap-4">
-                                <FileText className="w-6 h-6 text-cyan-500" />
-                                <span className="font-bold text-cyan-100">Download Dossier (Resume)</span>
-                            </span>
-                            <Send className="w-4 h-4 text-cyan-500 rotate-90" />
-                        </a>
+                        {personalData.contact.resumeUrl && (
+                            <a href={personalData.contact.resumeUrl} download className="flex items-center justify-between p-6 bg-gradient-to-r from-cyan-900/20 to-slate-900/50 border border-cyan-900/50 hover:border-cyan-500 rounded-xl transition-all group">
+                                <span className="flex items-center gap-4">
+                                    <FileText className="w-6 h-6 text-cyan-500" />
+                                    <span className="font-bold text-cyan-100">Download Dossier (Resume)</span>
+                                </span>
+                                <Send className="w-4 h-4 text-cyan-500 rotate-90" />
+                            </a>
+                        )}
                     </div>
                 </div>
             </div>

@@ -13,7 +13,7 @@ class PersonalData(models.Model):
     email = models.EmailField(blank=True, null=True)
     linkedin = models.URLField(blank=True, null=True)
     github = models.URLField(blank=True, null=True)
-    resume_url = models.CharField(max_length=500)
+    resume = models.FileField(upload_to='resumes/', blank=True, null=True)
 
     def __str__(self):
         return self.name

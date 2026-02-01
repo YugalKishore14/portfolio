@@ -26,7 +26,7 @@ class PersonalDataView(APIView):
     def get(self, request):
         data = PersonalData.objects.first()
         if data:
-            serializer = PersonalDataSerializer(data)
+            serializer = PersonalDataSerializer(data, context={'request': request})
             return Response(serializer.data)
         return Response({})
 

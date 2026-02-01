@@ -12,7 +12,7 @@ export interface PersonalData {
         email: string; // May be null if not set, but frontend expects string usually
         linkedin: string;
         github: string;
-        resumeUrl: string;
+        resumeUrl: string | null;
     };
 }
 

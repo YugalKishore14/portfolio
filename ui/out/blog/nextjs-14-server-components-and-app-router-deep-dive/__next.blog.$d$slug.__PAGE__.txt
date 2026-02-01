@@ -1,7 +1,7 @@
 1:"$Sreact.fragment"
-2:I[74021,["/_next/static/chunks/fa2399adf67d8e0b.js","/_next/static/chunks/2383faa1982b04db.js","/_next/static/chunks/3b0b00005099371f.js"],"default"]
+2:I[74021,["/_next/static/chunks/f933501d119bebc6.js","/_next/static/chunks/2383faa1982b04db.js","/_next/static/chunks/42cfdd41c84fa5b4.js"],"default"]
 4:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
 5:"$Sreact.suspense"
-0:{"buildId":"i2NWBgFUuu4M75zGfnupn","rsc":["$","$1","c",{"children":[["$","$L2",null,{"params":"$@3"}],[["$","script","script-0",{"src":"/_next/static/chunks/3b0b00005099371f.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"loading":null,"isPartial":false}
+0:{"buildId":"4Cp8W3EiaJ-tQYwQ8lVr5","rsc":["$","$1","c",{"children":[["$","$L2",null,{"params":"$@3"}],[["$","script","script-0",{"src":"/_next/static/chunks/42cfdd41c84fa5b4.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"loading":null,"isPartial":false}
 3:{"slug":"nextjs-14-server-components-and-app-router-deep-dive"}
 6:null

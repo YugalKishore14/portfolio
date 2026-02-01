@@ -228,36 +228,33 @@ const JarvisChatbot = () => {
 
     return (
         <>
-            <AnimatePresence>
-                {!isOpen && (
-                    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+            {/* Floating Button - Always present container for proper fixed positioning */}
+            {!isOpen && (
+                <div className="fixed bottom-6 right-4 md:bottom-8 md:right-8 z-[100] flex flex-col items-end gap-2">
+                    <AnimatePresence>
                         {showTooltip && (
                             <motion.div
                                 initial={{ opacity: 0, y: 10, scale: 0.9 }}
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                                className="relative bg-black/80 border border-cyan-500/50 text-cyan-400 px-4 py-2 rounded-lg backdrop-blur-md shadow-[0_0_15px_rgba(34,211,238,0.2)] mb-2 mr-2 max-w-[200px]"
+                                className="relative bg-black/80 border border-cyan-500/50 text-cyan-400 px-3 py-2 rounded-lg backdrop-blur-md shadow-[0_0_15px_rgba(34,211,238,0.2)] mb-2 max-w-[180px] md:max-w-[200px]"
                             >
-                                <p className="text-sm font-mono typing-cursor">{tooltipText}</p>
+                                <p className="text-xs md:text-sm font-mono typing-cursor">{tooltipText}</p>
                                 {/* Arrow pointing down-right */}
-                                <div className="absolute -bottom-2 right-6 w-4 h-4 bg-black/80 border-r border-b border-cyan-500/50 transform rotate-45"></div>
+                                <div className="absolute -bottom-2 right-4 w-3 h-3 md:w-4 md:h-4 bg-black/80 border-r border-b border-cyan-500/50 transform rotate-45"></div>
                             </motion.div>
                         )}
-                        <motion.div
-                            initial={{ scale: 0, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0, opacity: 0 }}
-                        >
-                            <button
-                                onClick={handleOpen}
-                                className="bg-cyan-500/20 hover:bg-cyan-500/40 text-cyan-400 border border-cyan-500/50 rounded-full p-4 shadow-[0_0_20px_rgba(34,211,238,0.3)] backdrop-blur-md transition-all group"
-                            >
-                                <Cpu className="w-8 h-8 group-hover:rotate-180 transition-transform duration-700" />
-                            </button>
-                        </motion.div>
-                    </div>
-                )}
-            </AnimatePresence>
+                    </AnimatePresence>
+                    <motion.button
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        onClick={handleOpen}
+                        className="bg-cyan-500/20 hover:bg-cyan-500/40 text-cyan-400 border border-cyan-500/50 rounded-full p-3 md:p-4 shadow-[0_0_20px_rgba(34,211,238,0.3)] backdrop-blur-md transition-all group"
+                    >
+                        <Cpu className="w-6 h-6 md:w-8 md:h-8 group-hover:rotate-180 transition-transform duration-700" />
+                    </motion.button>
+                </div>
+            )}
 
             <AnimatePresence>
                 {isOpen && (

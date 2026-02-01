@@ -5,14 +5,14 @@ import { Menu, X, Shield } from "lucide-react";
 import Link from "next/link";
 
 const navLinks = [
-    { name: "Mission", href: "#hero" },
-    { name: "Skills", href: "#skills" },
-    { name: "Journey", href: "#experience" },
-    { name: "Projects", href: "#projects" },
-    { name: "Blog", href: "#blog" },
-    { name: "Impact", href: "#achievements" },
-    { name: "About", href: "#about" },
-    { name: "Contact", href: "#contact" },
+    { name: "Mission", href: "/#hero" },
+    { name: "Skills", href: "/#skills" },
+    { name: "Journey", href: "/#experience" },
+    { name: "Projects", href: "/#projects" },
+    { name: "Blog", href: "/blog" },
+    { name: "Impact", href: "/#achievements" },
+    { name: "About", href: "/#about" },
+    { name: "Contact", href: "/#contact" },
 ];
 
 export default function Navbar() {
@@ -34,7 +34,7 @@ export default function Navbar() {
         >
             <div className="container mx-auto px-4 flex justify-between items-center">
                 {/* Logo */}
-                <Link href="#hero" className="flex items-center gap-2 group">
+                <Link href="/" className="flex items-center gap-2 group">
                     <div className="relative">
                         <Shield className="w-8 h-8 text-cyan-500 group-hover:text-cyan-400 transition-colors" />
                         <div className="absolute inset-0 bg-cyan-500/20 blur-lg rounded-full group-hover:bg-cyan-400/30 transition-all" />

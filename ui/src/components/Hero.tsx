@@ -43,7 +43,7 @@ export default function Hero({ data }: { data: PersonalData }) {
                         {personalData.role}
                     </h2>
 
-                    <p className="max-w-2xl mx-auto text-slate-400 text-lg md:text-xl leading-relaxed mb-12 border-l-2 border-cyan-500/50 pl-6 text-left md:text-center md:border-l-0">
+                    <p className="max-w-2xl mx-auto text-slate-400 text-lg md:text-xl leading-relaxed mb-12 text-center px-4">
                         {personalData.mission}
                     </p>
 

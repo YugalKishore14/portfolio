@@ -35,10 +35,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    re_path(r'^(?P<path>.*)$', serve_react),
 ]
 
 # Serve media files in development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Add SPA catch-all last
+urlpatterns += [
+    re_path(r'^(?P<path>.*)$', serve_react),
+]
 

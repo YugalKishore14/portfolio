@@ -13,11 +13,19 @@ class PersonalDataSerializer(serializers.ModelSerializer):
             'description': instance.about_description,
             'values': instance.about_values
         }
+        request = self.context.get('request')
+        resume_url = None
+        if instance.resume:
+            if request:
+                resume_url = request.build_absolute_uri(instance.resume.url)
+            else:
+                resume_url = instance.resume.url
+
         repr['contact'] = {
             'email': instance.email,
             'linkedin': instance.linkedin,
             'github': instance.github,
-            'resumeUrl': instance.resume_url
+            'resumeUrl': resume_url
         }
         return repr
 
