@@ -1,0 +1,591 @@
+/*
+ * AV.hq Admin Theme
+ * Custom CSS to match the portfolio website design
+ * Colors: Dark Slate Background (#020617) + Cyan Accents (#22d3ee)
+ */
+
+/* ============================================
+   ROOT VARIABLES - Portfolio Color Palette
+   ============================================ */
+:root {
+    --av-bg-primary: #020617;
+    /* slate-950 */
+    --av-bg-secondary: #0f172a;
+    /* slate-900 */
+    --av-bg-card: #1e293b;
+    /* slate-800 */
+    --av-bg-hover: #334155;
+    /* slate-700 */
+    --av-cyan-primary: #22d3ee;
+    /* cyan-400 */
+    --av-cyan-secondary: #06b6d4;
+    /* cyan-500 */
+    --av-cyan-dark: #0891b2;
+    /* cyan-600 */
+    --av-text-primary: #e2e8f0;
+    /* slate-200 */
+    --av-text-secondary: #94a3b8;
+    /* slate-400 */
+    --av-border: #334155;
+    /* slate-700 */
+    --av-cyan-glow: rgba(34, 211, 238, 0.3);
+}
+
+/* ============================================
+   BODY & MAIN WRAPPER
+   ============================================ */
+body {
+    background: var(--av-bg-primary) !important;
+    color: var(--av-text-primary) !important;
+}
+
+.wrapper {
+    background: var(--av-bg-primary) !important;
+}
+
+/* ============================================
+   NAVBAR / TOP BAR
+   ============================================ */
+.main-header.navbar {
+    background: linear-gradient(135deg, var(--av-bg-secondary) 0%, var(--av-bg-primary) 100%) !important;
+    border-bottom: 1px solid var(--av-cyan-primary) !important;
+    box-shadow: 0 0 20px var(--av-cyan-glow) !important;
+}
+
+.main-header .navbar-nav .nav-link {
+    color: var(--av-text-primary) !important;
+}
+
+.main-header .navbar-nav .nav-link:hover {
+    color: var(--av-cyan-primary) !important;
+}
+
+.navbar-info {
+    background: linear-gradient(135deg, var(--av-bg-secondary) 0%, rgba(6, 182, 212, 0.1) 100%) !important;
+}
+
+/* Brand / Logo */
+.brand-link {
+    background: var(--av-bg-primary) !important;
+    border-bottom: 1px solid var(--av-border) !important;
+    color: var(--av-cyan-primary) !important;
+    font-weight: bold !important;
+}
+
+.brand-link:hover {
+    color: var(--av-cyan-secondary) !important;
+}
+
+.brand-link .brand-image {
+    filter: drop-shadow(0 0 10px var(--av-cyan-glow));
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+.main-sidebar {
+    background: linear-gradient(180deg, var(--av-bg-secondary) 0%, var(--av-bg-primary) 100%) !important;
+    border-right: 1px solid var(--av-border) !important;
+}
+
+.sidebar-dark-info .nav-sidebar>.nav-item>.nav-link.active {
+    background: linear-gradient(90deg, var(--av-cyan-primary), var(--av-cyan-dark)) !important;
+    color: var(--av-bg-primary) !important;
+    box-shadow: 0 0 15px var(--av-cyan-glow) !important;
+    font-weight: 600 !important;
+}
+
+.sidebar-dark-info .nav-sidebar .nav-link {
+    color: var(--av-text-secondary) !important;
+    border-radius: 8px;
+    margin: 2px 8px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-dark-info .nav-sidebar .nav-link:hover {
+    background: rgba(34, 211, 238, 0.1) !important;
+    color: var(--av-cyan-primary) !important;
+    transform: translateX(5px);
+}
+
+.nav-icon {
+    color: var(--av-cyan-primary) !important;
+}
+
+.nav-header {
+    color: var(--av-cyan-primary) !important;
+    text-transform: uppercase !important;
+    font-size: 0.7rem !important;
+    letter-spacing: 2px !important;
+}
+
+/* ============================================
+   CONTENT WRAPPER
+   ============================================ */
+.content-wrapper {
+    background: var(--av-bg-primary) !important;
+}
+
+.content-header h1 {
+    color: var(--av-text-primary) !important;
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+.card {
+    background: var(--av-bg-secondary) !important;
+    border: 1px solid var(--av-border) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.card:hover {
+    border-color: rgba(34, 211, 238, 0.3) !important;
+    box-shadow: 0 4px 25px rgba(34, 211, 238, 0.1) !important;
+}
+
+.card-header {
+    background: transparent !important;
+    border-bottom: 1px solid var(--av-border) !important;
+    color: var(--av-text-primary) !important;
+}
+
+.card-title {
+    color: var(--av-cyan-primary) !important;
+    font-weight: 600 !important;
+}
+
+.card-body {
+    color: var(--av-text-primary) !important;
+}
+
+.card-footer {
+    background: rgba(15, 23, 42, 0.5) !important;
+    border-top: 1px solid var(--av-border) !important;
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+.table {
+    color: var(--av-text-primary) !important;
+}
+
+.table thead th {
+    background: var(--av-bg-card) !important;
+    color: var(--av-cyan-primary) !important;
+    border-bottom: 2px solid var(--av-cyan-dark) !important;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.table tbody tr {
+    background: var(--av-bg-secondary) !important;
+    transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background: rgba(34, 211, 238, 0.05) !important;
+}
+
+.table tbody td {
+    border-color: var(--av-border) !important;
+    color: var(--av-text-primary) !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background: rgba(15, 23, 42, 0.5) !important;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn-info,
+.btn-primary {
+    background: linear-gradient(135deg, var(--av-cyan-primary), var(--av-cyan-dark)) !important;
+    border: none !important;
+    color: var(--av-bg-primary) !important;
+    font-weight: 600 !important;
+    box-shadow: 0 0 15px var(--av-cyan-glow) !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-info:hover,
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--av-cyan-secondary), var(--av-cyan-primary)) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 25px var(--av-cyan-glow) !important;
+}
+
+.btn-secondary {
+    background: var(--av-bg-card) !important;
+    border: 1px solid var(--av-border) !important;
+    color: var(--av-text-primary) !important;
+}
+
+.btn-secondary:hover {
+    background: var(--av-bg-hover) !important;
+    color: var(--av-cyan-primary) !important;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    border: none !important;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+    border: none !important;
+}
+
+.btn-outline-info {
+    border: 1px solid var(--av-cyan-primary) !important;
+    color: var(--av-cyan-primary) !important;
+    background: transparent !important;
+}
+
+.btn-outline-info:hover {
+    background: var(--av-cyan-primary) !important;
+    color: var(--av-bg-primary) !important;
+}
+
+/* ============================================
+   FORMS
+   ============================================ */
+.form-control,
+.select2-selection,
+input,
+select,
+textarea {
+    background: var(--av-bg-card) !important;
+    border: 1px solid var(--av-border) !important;
+    color: var(--av-text-primary) !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+}
+
+.form-control:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--av-cyan-primary) !important;
+    box-shadow: 0 0 15px var(--av-cyan-glow) !important;
+    outline: none !important;
+}
+
+.form-control::placeholder {
+    color: var(--av-text-secondary) !important;
+}
+
+label {
+    color: var(--av-text-primary) !important;
+    font-weight: 500 !important;
+}
+
+.help-block,
+.text-muted {
+    color: var(--av-text-secondary) !important;
+}
+
+/* Checkboxes and Radio */
+.custom-control-input:checked~.custom-control-label::before {
+    background-color: var(--av-cyan-primary) !important;
+    border-color: var(--av-cyan-primary) !important;
+}
+
+/* ============================================
+   DROPDOWNS
+   ============================================ */
+.dropdown-menu {
+    background: var(--av-bg-secondary) !important;
+    border: 1px solid var(--av-border) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dropdown-item {
+    color: var(--av-text-primary) !important;
+}
+
+.dropdown-item:hover {
+    background: rgba(34, 211, 238, 0.1) !important;
+    color: var(--av-cyan-primary) !important;
+}
+
+.dropdown-divider {
+    border-color: var(--av-border) !important;
+}
+
+/* ============================================
+   PAGINATION
+   ============================================ */
+.page-link {
+    background: var(--av-bg-card) !important;
+    border-color: var(--av-border) !important;
+    color: var(--av-text-primary) !important;
+}
+
+.page-link:hover {
+    background: var(--av-cyan-primary) !important;
+    color: var(--av-bg-primary) !important;
+}
+
+.page-item.active .page-link {
+    background: var(--av-cyan-primary) !important;
+    border-color: var(--av-cyan-primary) !important;
+    color: var(--av-bg-primary) !important;
+}
+
+/* ============================================
+   BREADCRUMBS
+   ============================================ */
+.breadcrumb {
+    background: transparent !important;
+}
+
+.breadcrumb-item a {
+    color: var(--av-cyan-primary) !important;
+}
+
+.breadcrumb-item.active {
+    color: var(--av-text-secondary) !important;
+}
+
+/* ============================================
+   ALERTS & MESSAGES
+   ============================================ */
+.alert-info {
+    background: rgba(34, 211, 238, 0.1) !important;
+    border: 1px solid var(--av-cyan-primary) !important;
+    color: var(--av-cyan-primary) !important;
+}
+
+.alert-success {
+    background: rgba(16, 185, 129, 0.1) !important;
+    border: 1px solid #10b981 !important;
+    color: #10b981 !important;
+}
+
+.alert-warning {
+    background: rgba(245, 158, 11, 0.1) !important;
+    border: 1px solid #f59e0b !important;
+    color: #f59e0b !important;
+}
+
+.alert-danger {
+    background: rgba(239, 68, 68, 0.1) !important;
+    border: 1px solid #ef4444 !important;
+    color: #ef4444 !important;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.main-footer {
+    background: var(--av-bg-secondary) !important;
+    border-top: 1px solid var(--av-border) !important;
+    color: var(--av-text-secondary) !important;
+}
+
+/* ============================================
+   LOGIN PAGE
+   ============================================ */
+.login-page,
+.register-page {
+    background: linear-gradient(135deg, var(--av-bg-primary) 0%, var(--av-bg-secondary) 100%) !important;
+}
+
+.login-box .card,
+.register-box .card {
+    background: var(--av-bg-secondary) !important;
+    border: 1px solid var(--av-border) !important;
+    box-shadow: 0 0 50px rgba(34, 211, 238, 0.1) !important;
+}
+
+.login-logo a,
+.register-logo a {
+    color: var(--av-cyan-primary) !important;
+    text-shadow: 0 0 20px var(--av-cyan-glow) !important;
+}
+
+/* ============================================
+   LINKS
+   ============================================ */
+a {
+    color: var(--av-cyan-primary) !important;
+    transition: all 0.2s ease;
+}
+
+a:hover {
+    color: var(--av-cyan-secondary) !important;
+    text-decoration: none !important;
+}
+
+/* Change list links */
+.changelink,
+.addlink,
+.deletelink {
+    color: var(--av-cyan-primary) !important;
+}
+
+/* ============================================
+   BADGES
+   ============================================ */
+.badge-info {
+    background: var(--av-cyan-primary) !important;
+    color: var(--av-bg-primary) !important;
+}
+
+.badge-success {
+    background: #10b981 !important;
+}
+
+.badge-warning {
+    background: #f59e0b !important;
+    color: var(--av-bg-primary) !important;
+}
+
+.badge-danger {
+    background: #ef4444 !important;
+}
+
+/* ============================================
+   MODALS
+   ============================================ */
+.modal-content {
+    background: var(--av-bg-secondary) !important;
+    border: 1px solid var(--av-border) !important;
+    border-radius: 12px !important;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--av-border) !important;
+    background: var(--av-bg-card) !important;
+}
+
+.modal-title {
+    color: var(--av-cyan-primary) !important;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--av-border) !important;
+}
+
+.close {
+    color: var(--av-text-primary) !important;
+}
+
+/* ============================================
+   SELECT2 (Dropdowns)
+   ============================================ */
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple {
+    background: var(--av-bg-card) !important;
+    border: 1px solid var(--av-border) !important;
+}
+
+.select2-container--default .select2-results__option--highlighted {
+    background: var(--av-cyan-primary) !important;
+    color: var(--av-bg-primary) !important;
+}
+
+.select2-dropdown {
+    background: var(--av-bg-secondary) !important;
+    border: 1px solid var(--av-border) !important;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--av-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--av-bg-hover);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--av-cyan-dark);
+}
+
+/* ============================================
+   INFO BOXES / STATS
+   ============================================ */
+.info-box {
+    background: var(--av-bg-secondary) !important;
+    border: 1px solid var(--av-border) !important;
+    border-radius: 12px !important;
+}
+
+.info-box .info-box-icon {
+    background: linear-gradient(135deg, var(--av-cyan-primary), var(--av-cyan-dark)) !important;
+    border-radius: 12px 0 0 12px !important;
+}
+
+.info-box .info-box-text {
+    color: var(--av-text-secondary) !important;
+}
+
+.info-box .info-box-number {
+    color: var(--av-text-primary) !important;
+}
+
+.small-box {
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+.small-box.bg-info {
+    background: linear-gradient(135deg, var(--av-cyan-primary), var(--av-cyan-dark)) !important;
+}
+
+/* ============================================
+   CKEDITOR
+   ============================================ */
+.cke_chrome {
+    border: 1px solid var(--av-border) !important;
+    border-radius: 8px !important;
+}
+
+.cke_top {
+    background: var(--av-bg-card) !important;
+    border-bottom: 1px solid var(--av-border) !important;
+}
+
+.cke_bottom {
+    background: var(--av-bg-card) !important;
+    border-top: 1px solid var(--av-border) !important;
+}
+
+/* ============================================
+   MISC OVERRIDES
+   ============================================ */
+.text-info {
+    color: var(--av-cyan-primary) !important;
+}
+
+.bg-info {
+    background: var(--av-cyan-primary) !important;
+}
+
+.border-info {
+    border-color: var(--av-cyan-primary) !important;
+}
+
+hr {
+    border-color: var(--av-border) !important;
+}
+
+/* Accent glow effect on focus for consistency */
+*:focus {
+    outline-color: var(--av-cyan-primary) !important;
+}
