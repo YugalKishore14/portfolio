@@ -28,18 +28,26 @@ from django.views.static import serve
 import os
 
 def serve_react(request, path):
-    # If path refers to a file that exists, serve it
-    filepath = settings.BASE_DIR / 'ui/out' / path
-    
+    out_dir = settings.BASE_DIR / 'ui/out'
+    filepath = out_dir / path
+
+    # 1. Exact file match (e.g., /favicon.ico, /_next/static/...)
+    if path and os.path.isfile(filepath):
+        return serve(request, path, document_root=out_dir)
+
+    # 2. Directory match - look for index.html
     if os.path.isdir(filepath):
-        # If it's a directory, try to serve index.html inside it
-        return serve(request, os.path.join(path, 'index.html'), document_root=settings.BASE_DIR / 'ui/out')
-    
-    if path and os.path.exists(filepath):
-        return serve(request, path, document_root=settings.BASE_DIR / 'ui/out')
-        
-    # Otherwise, serve index.html for SPA routing
-    return serve(request, 'index.html', document_root=settings.BASE_DIR / 'ui/out')
+        index_path = os.path.join(path, 'index.html')
+        if os.path.isfile(out_dir / index_path):
+            return serve(request, index_path, document_root=out_dir)
+
+    # 3. Next.js static route match (e.g., /blog -> blog.html)
+    html_path = path.rstrip('/') + '.html'
+    if os.path.isfile(out_dir / html_path):
+        return serve(request, html_path, document_root=out_dir)
+
+    # 4. Fallback to index.html for SPA routing
+    return serve(request, 'index.html', document_root=out_dir)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
