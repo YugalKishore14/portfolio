@@ -1,6 +1,10 @@
 from django.contrib import admin
 from django.utils import timezone
-from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost
+from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost, AdminOTP
+
+@admin.register(AdminOTP)
+class AdminOTPAdmin(admin.ModelAdmin):
+    list_display = ('user', 'otp', 'created_at')
 
 @admin.register(PersonalData)
 class PersonalDataAdmin(admin.ModelAdmin):

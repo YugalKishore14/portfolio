@@ -94,3 +94,17 @@ class BlogPost(models.Model):
     def __str__(self):
         return self.title
 
+class AdminOTP(models.Model):
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE, related_name='otp')
+    otp = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now=True)
+
+    def is_valid(self):
+        # OTP is valid for 5 minutes
+        from django.utils import timezone
+        from datetime import timedelta
+        return self.created_at >= timezone.now() - timedelta(minutes=5)
+
+    def __str__(self):
+        return f"OTP for {self.user.username}"
+
