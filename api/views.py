@@ -9,10 +9,12 @@ from rest_framework.views import APIView
 from rest_framework.decorators import action
 from django.conf import settings
 from django.db.models import F
-from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost
+from django.core.mail import send_mail
+from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost, ServiceQuery
 from .serializers import (
     PersonalDataSerializer, SkillCategorySerializer, ExperienceSerializer, 
-    ProjectSerializer, AchievementSerializer, BlogPostListSerializer, BlogPostDetailSerializer
+    ProjectSerializer, AchievementSerializer, BlogPostListSerializer, BlogPostDetailSerializer,
+    ServiceQuerySerializer
 )
 
 # Configure Gemini
@@ -100,15 +102,15 @@ class ChatBotView(APIView):
 
             # Construct prompt
             system_prompt = f"""
-            You are Jarvis, a highly advanced AI assistant for Aniket Verma.
-            Your persona is professional, intelligent, and helpful, similar to J.A.R.V.IS from Iron Man.
+            You are Nance, a highly advanced AI assistant for Aniket Verma.
+            Your persona is professional, intelligent, and helpful, similar to NANCE from Aniket Verma.
             You are requested to answer questions based on Aniket's resume.
             
             Resume Context:
             {resume_content}
 
             Rules:
-            1. Always answer in the persona of Jarvis ("Sir", "Processing", etc. are good, but keep it concise).
+            1. Always answer in the persona of Nance ("Sir", "Processing", etc. are good, but keep it concise).
             2. Only answer questions related to Aniket's professional background, skills, and resume.
             3. If the question is unrelated, politely decline and steer back to Aniket.
             4. Keep answers brief and to the point suitable for a chat interface.
@@ -134,4 +136,26 @@ class ChatBotView(APIView):
         except Exception as e:
             print(f"Gemini Error: {e}")
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+from .admin_overrides import send_brevo_query_emails
+
+class ServiceQueryView(APIView):
+    def post(self, request):
+        serializer = ServiceQuerySerializer(data=request.data)
+        if serializer.is_valid():
+            query = serializer.save()
+            
+            # Get admin email from PersonalData or settings
+            personal_data = PersonalData.objects.first()
+            admin_email = personal_data.email if personal_data and personal_data.email else settings.DEFAULT_FROM_EMAIL
+            
+            # Send emails via Brevo
+            try:
+                send_brevo_query_emails(query, admin_email)
+            except Exception as e:
+                print(f"Brevo Service Error: {e}")
+            
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

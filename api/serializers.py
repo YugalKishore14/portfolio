@@ -1,5 +1,10 @@
 from rest_framework import serializers
-from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost
+from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost, ServiceQuery
+
+class ServiceQuerySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServiceQuery
+        fields = '__all__'
 
 class PersonalDataSerializer(serializers.ModelSerializer):
     class Meta:

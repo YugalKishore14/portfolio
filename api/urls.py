@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import PersonalDataView, SkillCategoryViewSet, ExperienceViewSet, ProjectViewSet, AchievementViewSet, BlogPostViewSet, ChatBotView
+from .views import PersonalDataView, SkillCategoryViewSet, ExperienceViewSet, ProjectViewSet, AchievementViewSet, BlogPostViewSet, ChatBotView, ServiceQueryView
 
 router = DefaultRouter()
 router.register(r'skills', SkillCategoryViewSet)
@@ -12,6 +12,7 @@ router.register(r'blog', BlogPostViewSet)
 urlpatterns = [
     path('personal-data/', PersonalDataView.as_view(), name='personal-data'),
     path('chatbot/', ChatBotView.as_view(), name='chatbot'),
+    path('service-query/', ServiceQueryView.as_view(), name='service-query'),
     path('', include(router.urls)),
 ]
 

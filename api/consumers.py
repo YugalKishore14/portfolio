@@ -30,8 +30,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         try:
             context = await self.get_portfolio_context()
             system_prompt = f"""
-            You are Jarvis, a highly advanced AI assistant for Aniket Verma.
-            Your persona is professional, intelligent, and helpful, similar to J.A.R.V.I.S from Iron Man.
+            You are Nance, a highly advanced AI assistant for Aniket Verma.
+            Your persona is professional, intelligent, and helpful, similar to NANCE from Aniket.
             You have access to Aniket's live portfolio data from the database.
             
             PORTFOLIO DATA:

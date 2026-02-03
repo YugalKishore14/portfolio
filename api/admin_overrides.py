@@ -9,18 +9,24 @@ from django.conf import settings
 from .models import AdminOTP
 from django.contrib.admin.sites import AdminSite
 
+def _get_brevo_client():
+    api_key = os.getenv('BREVO_API_KEY')
+    if not api_key:
+        print("BREVO_API_KEY not found in environment")
+        return None
+    configuration = sib_api_v3_sdk.Configuration()
+    configuration.api_key['api-key'] = api_key
+    return sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
+
 def send_brevo_otp(email, otp):
     """
     Sends OTP using Brevo's Transactional Email API.
     """
-    api_key = os.getenv('BREVO_API_KEY')
+    api_instance = _get_brevo_client()
+    if not api_instance:
+        return False
+
     sender_email = os.getenv('BREVO_SENDER_EMAIL', 'aniketverma1103@gmail.com')
-    
-    configuration = sib_api_v3_sdk.Configuration()
-    configuration.api_key['api-key'] = api_key
-    
-    api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
-    
     subject = "Admin Login OTP"
     html_content = f"""
     <html>
@@ -55,10 +61,70 @@ def send_brevo_otp(email, otp):
     )
     
     try:
-        api_response = api_instance.send_transac_email(send_smtp_email)
+        api_instance.send_transac_email(send_smtp_email)
         return True
     except ApiException as e:
         print(f"Exception when calling TransactionalEmailsApi->send_transac_email: {e}")
+        return False
+
+def send_brevo_query_emails(query, admin_email):
+    """
+    Sends service query emails using Brevo (one to admin, one to requester).
+    """
+    api_instance = _get_brevo_client()
+    if not api_instance:
+        return False
+
+    sender_email = os.getenv('BREVO_SENDER_EMAIL', 'aniketverma1103@gmail.com')
+    sender = { "name": "Portfolio System", "email": sender_email }
+
+    # 1. Send to Admin
+    admin_html = f"""
+    <div style="font-family: sans-serif; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+        <h2 style="color: #06b6d4;">New Product Query Received</h2>
+        <p><strong>Name:</strong> {query.name}</p>
+        <p><strong>Email:</strong> {query.email}</p>
+        <p><strong>Subject:</strong> {query.subject}</p>
+        <hr/>
+        <p><strong>Message:</strong></p>
+        <p style="white-space: pre-wrap;">{query.message}</p>
+    </div>
+    """
+    
+    admin_email_smtp = sib_api_v3_sdk.SendSmtpEmail(
+        to=[{"email": admin_email}],
+        html_content=admin_html,
+        sender=sender,
+        subject=f"New Product Query: {query.subject}"
+    )
+
+    # 2. Send to Requester
+    user_html = f"""
+    <div style="font-family: sans-serif; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+        <h2 style="color: #06b6d4;">Transmission Received</h2>
+        <p>Hello {query.name},</p>
+        <p>Thank you for reaching out. I have received your query regarding <strong>'{query.subject}'</strong> and will get back to you shortly.</p>
+        <hr/>
+        <p><strong>Your Message:</strong></p>
+        <p style="color: #666; font-style: italic;">{query.message}</p>
+        <p style="margin-top: 20px;">Best regards,<br/>Aniket Verma</p>
+    </div>
+    """
+    
+    user_email_smtp = sib_api_v3_sdk.SendSmtpEmail(
+        to=[{"email": query.email}],
+        html_content=user_html,
+        sender=sender,
+        subject=f"Confirmation: Query Received - {query.subject}"
+    )
+
+    try:
+        # Both returns are ignored or handled together
+        api_instance.send_transac_email(admin_email_smtp)
+        api_instance.send_transac_email(user_email_smtp)
+        return True
+    except ApiException as e:
+        print(f"Brevo API error: {e}")
         return False
 
 def otp_admin_login(self, request, extra_context=None):

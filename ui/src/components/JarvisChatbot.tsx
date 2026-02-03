@@ -36,7 +36,7 @@ const JarvisChatbot = () => {
             socketRef.current = ws;
 
             ws.onopen = () => {
-                console.log("Connected to Jarvis Terminal");
+                console.log("Connected to Nance Terminal");
             };
 
 
@@ -277,7 +277,7 @@ const JarvisChatbot = () => {
                             <div className="flex justify-between items-center p-4 border-b border-cyan-500/20 bg-cyan-950/10 z-20">
                                 <div className="flex items-center gap-2 text-cyan-400">
                                     <Terminal className="w-5 h-5" />
-                                    <span className="font-bold tracking-widest text-sm">J.A.R.V.I.S. TERMINAL</span>
+                                    <span className="font-bold tracking-widest text-sm">ANIKET'S AGENT</span>
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <button

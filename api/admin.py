@@ -1,6 +1,13 @@
 from django.contrib import admin
 from django.utils import timezone
-from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost, AdminOTP
+from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost, AdminOTP, ServiceQuery
+
+@admin.register(ServiceQuery)
+class ServiceQueryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'subject', 'created_at')
+    list_filter = ('created_at',)
+    search_fields = ('name', 'email', 'subject', 'message')
+    readonly_fields = ('created_at',)
 
 @admin.register(AdminOTP)
 class AdminOTPAdmin(admin.ModelAdmin):
