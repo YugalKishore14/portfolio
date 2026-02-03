@@ -1,5 +1,5 @@
 1:"$Sreact.fragment"
-2:I[74021,["/_next/static/chunks/4911907068249cad.js","/_next/static/chunks/2383faa1982b04db.js","/_next/static/chunks/fc07566903636968.js"],"default"]
+2:I[74021,["/_next/static/chunks/60f4d6d62331baa7.js","/_next/static/chunks/2383faa1982b04db.js","/_next/static/chunks/fc07566903636968.js"],"default"]
 7:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
 8:"$Sreact.suspense"
 4:T1022,<p>Want to get better performance from an LLM without reinventing the wheel? Here&rsquo;s a clear, practical workflow I use to fine-tune models &mdash; useful for prod prototypes, domain-adapted agents, or custom assistants.</p>
@@ -86,7 +86,7 @@
 
 <p>10) Iterate</p>
 
-<p>Fine-tuning is not a one-shot job. Use real user interactions, telemetry, and evaluation to prioritize the next round of data collection and model updates.</p>0:{"buildId":"VuHqWCD60Uj3xDEmWq4eM","rsc":["$","$1","c",{"children":[["$","$L2",null,{"params":"$@3","initialPost":{"id":1,"title":"How I fine-tune a Large Language Model (LLM) — practical steps you can use today","slug":"how-i-fine-tune-a-large-language-model-llm-practical-steps-you-can-use-today","excerpt":"How I fine-tune a Large Language Model (LLM) — practical steps you can use today","content":"$4","featured_image_url":null,"author":"Aniket Verma","category":"Technology","tags":["Python","Langchain","LLM"],"read_time":5,"views":6,"created_at":"2026-01-31T12:02:35.591662Z","updated_at":"2026-01-31T12:02:35.591674Z","published_at":"2026-01-31T12:00:52Z","meta_description":"How I fine-tune a Large Language Model (LLM) — practical steps you can use today","meta_keywords":""}}],["$L5"],"$L6"]}],"loading":null,"isPartial":false}
+<p>Fine-tuning is not a one-shot job. Use real user interactions, telemetry, and evaluation to prioritize the next round of data collection and model updates.</p>0:{"buildId":"FWdrmPigl-6Zt7TQsWf42","rsc":["$","$1","c",{"children":[["$","$L2",null,{"params":"$@3","initialPost":{"id":1,"title":"How I fine-tune a Large Language Model (LLM) — practical steps you can use today","slug":"how-i-fine-tune-a-large-language-model-llm-practical-steps-you-can-use-today","excerpt":"How I fine-tune a Large Language Model (LLM) — practical steps you can use today","content":"$4","featured_image_url":null,"author":"Aniket Verma","category":"Technology","tags":["Python","Langchain","LLM"],"read_time":5,"views":6,"created_at":"2026-01-31T12:02:35.591662Z","updated_at":"2026-01-31T12:02:35.591674Z","published_at":"2026-01-31T12:00:52Z","meta_description":"How I fine-tune a Large Language Model (LLM) — practical steps you can use today","meta_keywords":""}}],["$L5"],"$L6"]}],"loading":null,"isPartial":false}
 3:{"slug":"how-i-fine-tune-a-large-language-model-llm-practical-steps-you-can-use-today"}
 5:["$","script","script-0",{"src":"/_next/static/chunks/fc07566903636968.js","async":true}]
 6:["$","$L7",null,{"children":["$","$8",null,{"name":"Next.MetadataOutlet","children":"$@9"}]}]
