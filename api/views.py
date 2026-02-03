@@ -8,6 +8,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import action
 from django.conf import settings
+from .admin_overrides import send_brevo_query_emails
+
+from rest_framework.permissions import AllowAny
 from django.db.models import F
 from django.core.mail import send_mail
 from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost, ServiceQuery
@@ -89,6 +92,9 @@ class BlogPostViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 class ChatBotView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+    
     def post(self, request):
         user_query = request.data.get('query')
         if not user_query:
@@ -138,9 +144,11 @@ class ChatBotView(APIView):
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-from .admin_overrides import send_brevo_query_emails
 
 class ServiceQueryView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+    
     def post(self, request):
         serializer = ServiceQuerySerializer(data=request.data)
         if serializer.is_valid():
