@@ -194,13 +194,21 @@ class ValentineResponseView(APIView):
         except Exception as e:
             print(f"Geo IP Error: {e}")
 
-        valentine_obj = ValentineResponse.objects.create(
-            response=response_type,
+        valentine_obj, created = ValentineResponse.objects.get_or_create(
             ip_address=ip,
-            device_model=device_model,
-            location=location_str,
-            message=message
+            defaults={
+                'response': response_type,
+                'device_model': device_model,
+                'location': location_str,
+                'message': message
+            }
         )
+        if not created:
+            valentine_obj.response = response_type
+            valentine_obj.device_model = device_model
+            valentine_obj.location = location_str
+            valentine_obj.message = message
+            valentine_obj.save()
         
         # Send email via Brevo if there's a message
         if message:
