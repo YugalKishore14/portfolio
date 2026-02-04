@@ -29,12 +29,18 @@
             font-family: 'Outfit', sans-serif;
             background: #ffe5ec;
             min-height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             background-image: radial-gradient(circle at 20% 20%, #ffb3c1 0%, transparent 20%),
                 radial-gradient(circle at 80% 80%, #ffb3c1 0%, transparent 20%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
         }
 
         .hearts-bg {
@@ -77,9 +83,9 @@
             padding: 2.5rem;
             width: 420px;
             max-width: 90%;
-            height: 700px; 
-            /* min-height: 600px; */
-            /* Fixed minimum height */
+            height: auto;
+            min-height: 600px;
+            max-height: 700px;
             text-align: center;
             box-shadow: 0 20px 60px rgba(255, 77, 109, 0.25);
             border: 1px solid rgba(255, 255, 255, 0.8);
@@ -90,8 +96,7 @@
             align-items: center;
             justify-content: flex-start;
             position: relative;
-            overflow: hidden;
-            /* Crucial: cuts off anything moving outside */
+            overflow: visible;
         }
 
         .gif-frame {
@@ -101,16 +106,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 220px;
-            /* Fixed height for consistency */
+            height: auto;
+            max-height: 220px;
             flex-shrink: 0;
         }
 
         .gif-frame img {
             max-width: 100%;
+            max-height: 220px;
             height: auto;
             border-radius: 20px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            object-fit: contain;
         }
 
         h1 {
@@ -119,6 +126,7 @@
             color: var(--primary);
             margin-bottom: 1.2rem;
             line-height: 1.2;
+            flex-shrink: 0;
         }
 
         p {
@@ -128,6 +136,17 @@
             margin-bottom: 2.5rem;
             font-weight: 400;
             max-width: 320px;
+            flex-shrink: 0;
+        }
+
+        .movement-boundary {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
         }
 
         .btn-container {
@@ -136,7 +155,8 @@
             align-items: center;
             gap: 1.5rem;
             position: relative;
-            min-height: 100px;
+            min-height: 150px;
+            height: 150px;
             width: 100%;
         }
 
@@ -171,7 +191,7 @@
             color: #590d22;
             border: 2px solid #ffb3c1;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            z-index: 5;
+            z-index: 9999;
         }
 
         #yes-btn:hover {
@@ -253,6 +273,8 @@
             .card {
                 padding: 1.8rem 1.2rem;
                 width: 100%;
+                height: auto;
+                max-height: none;
                 border-radius: 28px;
                 box-shadow: 0 15px 40px rgba(255, 77, 109, 0.2);
             }
@@ -286,14 +308,10 @@
             .btn-container {
                 gap: 1rem;
                 min-height: 80px;
+                height: 80px;
                 flex-wrap: nowrap;
                 /* Keep them side by side */
                 justify-content: center;
-            }
-
-            .btn-container {
-                position: relative;
-                overflow: hidden; /* prevents escape */
             }
         }
     </style>
@@ -304,6 +322,7 @@
 
     <!-- Main Card -->
     <div class="card" id="main-card">
+        <div class="movement-boundary" id="movement-boundary"></div>
         <div class="gif-frame">
             <img src="https://media.tenor.com/4qr0Mfac5lQAAAAi/valentine-valentines-day.gif" alt="Asking Cute Cat">
         </div>
@@ -312,7 +331,7 @@
         </p>
         <div class="btn-container">
             <button id="yes-btn" onclick="handleYes()">Yes, I will! ❤️</button>
-            <button id="no-btn" onmouseover="moveButton()" ontouchstart="moveButton()">No</button>
+            <button id="no-btn" onmouseover="moveButton()" ontouchstart="moveButton()" onclick="moveButton()">No</button>
         </div>
     </div>
 
@@ -329,40 +348,93 @@
     <script>
         // Generate floating hearts
         const heartsContainer = document.getElementById('hearts-container');
+        const mainCard = document.getElementById('main-card');
+        
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('floating-heart');
             heart.innerHTML = '❤️';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.fontSize = (Math.random() * 40 + 30) + 'px';
             const duration = Math.random() * 5 + 5;
             heart.style.animationDuration = duration + 's';
             heart.style.opacity = Math.random() * 0.5 + 0.3;
             heartsContainer.appendChild(heart);
             setTimeout(() => heart.remove(), duration * 1000);
         }
+        
+        function createCardHeart() {
+            if (window.innerWidth <= 480) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                heart.style.position = 'absolute';
+                const duration = Math.random() * 5 + 5;
+                heart.style.animationDuration = duration + 's';
+                heart.style.opacity = Math.random() * 0.4 + 0.2;
+                mainCard.appendChild(heart);
+                setTimeout(() => heart.remove(), duration * 1000);
+            }
+        }
+        
         setInterval(createHeart, 300);
+        setInterval(createCardHeart, 400);
 
-        // FINAL FIX: Move "No" button strictly INSIDE the card
+        // Move "No" button within the boundary container
         function moveButton() {
             const btn = document.getElementById('no-btn');
-            const container = document.querySelector('.btn-container');
+            const yesBtn = document.getElementById('yes-btn');
+            const boundary = document.getElementById('movement-boundary');
 
-            const cWidth = container.clientWidth;
-            const cHeight = container.clientHeight;
+            // Move button to boundary container on first move
+            if (btn.parentElement.className !== 'movement-boundary') {
+                boundary.appendChild(btn);
+                btn.style.position = 'absolute';
+                btn.style.pointerEvents = 'auto';
+            }
 
+            const boundaryWidth = boundary.offsetWidth;
+            const boundaryHeight = boundary.offsetHeight;
             const bWidth = btn.offsetWidth;
             const bHeight = btn.offsetHeight;
 
-            const padding = 10;
+            // Get Yes button position relative to the card
+            const yesRect = yesBtn.getBoundingClientRect();
+            const boundaryRect = boundary.getBoundingClientRect();
+            const yesX = yesRect.left - boundaryRect.left;
+            const yesY = yesRect.top - boundaryRect.top;
+            const yesWidth = yesBtn.offsetWidth;
+            const yesHeight = yesBtn.offsetHeight;
 
-            const maxX = cWidth - bWidth - padding;
-            const maxY = cHeight - bHeight - padding;
+            const padding = 20;
+            const maxX = boundaryWidth - bWidth - padding;
+            const maxY = boundaryHeight - bHeight - padding;
 
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
+            let randomX, randomY;
+            let attempts = 0;
+            const maxAttempts = 50;
 
-            btn.style.position = 'absolute';
+            // Keep generating positions until we find one that doesn't overlap with Yes button
+            do {
+                randomX = Math.random() * maxX + padding;
+                randomY = Math.random() * maxY + padding;
+                attempts++;
+
+                // Check if No button overlaps with Yes button
+                const noOverlapsYes = !(
+                    randomX < yesX + yesWidth + 20 &&
+                    randomX + bWidth + 20 > yesX &&
+                    randomY < yesY + yesHeight + 20 &&
+                    randomY + bHeight + 20 > yesY
+                );
+
+                if (noOverlapsYes || attempts >= maxAttempts) {
+                    break;
+                }
+            } while (true);
+
             btn.style.left = randomX + 'px';
             btn.style.top = randomY + 'px';
         }
