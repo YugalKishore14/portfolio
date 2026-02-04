@@ -8,12 +8,21 @@ from django.contrib import messages
 from django.conf import settings
 from .models import AdminOTP
 from django.contrib.admin.sites import AdminSite
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 def _get_brevo_client():
     api_key = os.getenv('BREVO_API_KEY')
     if not api_key:
-        print("BREVO_API_KEY not found in environment")
+        print(f"BREVO_API_KEY not found in environment")
         return None
+    
+    # Debug logging
+    print(f"✓ Brevo API Key loaded (length: {len(api_key)})")
+    print(f"✓ Key preview: {api_key[:15]}...{api_key[-10:]}")
+    
     configuration = sib_api_v3_sdk.Configuration()
     configuration.api_key['api-key'] = api_key
     return sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
