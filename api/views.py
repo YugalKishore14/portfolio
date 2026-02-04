@@ -13,7 +13,8 @@ from .admin_overrides import send_brevo_query_emails
 from rest_framework.permissions import AllowAny
 from django.db.models import F
 from django.core.mail import send_mail
-from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost, ServiceQuery
+from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost, ServiceQuery, ValentineResponse
+import requests
 from .serializers import (
     PersonalDataSerializer, SkillCategorySerializer, ExperienceSerializer, 
     ProjectSerializer, AchievementSerializer, BlogPostListSerializer, BlogPostDetailSerializer,
@@ -167,3 +168,36 @@ class ServiceQueryView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class ValentineResponseView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def post(self, request):
+        response_type = request.data.get('response') # 'Yes' or 'No'
+        device_model = request.data.get('device_model')
+        
+        # Get client IP
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        
+        # Get location from IP (using ip-api.com - free for non-commercial)
+        location_str = "Unknown"
+        try:
+            geo_res = requests.get(f"http://ip-api.com/json/{ip}", timeout=5).json()
+            if geo_res.get('status') == 'success':
+                location_str = f"{geo_res.get('city')}, {geo_res.get('regionName')}, {geo_res.get('country')}"
+        except Exception as e:
+            print(f"Geo IP Error: {e}")
+
+        ValentineResponse.objects.create(
+            response=response_type,
+            ip_address=ip,
+            device_model=device_model,
+            location=location_str
+        )
+        
+        return Response({"status": "success", "message": "Response recorded"}, status=status.HTTP_201_CREATED)

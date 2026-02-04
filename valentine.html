@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Special One ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ff8fa3;
+            --accent: #ffb3c1;
+            --bg: #fff0f3;
+            --text: #590d22;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #ffe5ec;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-image: radial-gradient(circle at 20% 20%, #ffb3c1 0%, transparent 20%),
+                radial-gradient(circle at 80% 80%, #ffb3c1 0%, transparent 20%);
+        }
+
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .floating-heart {
+            position: absolute;
+            animation: float-up linear infinite;
+            color: var(--primary);
+            pointer-events: none;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(110vh) scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 32px;
+            padding: 2.5rem;
+            width: 420px;
+            max-width: 90%;
+            height: 700px; 
+            /* min-height: 600px; */
+            /* Fixed minimum height */
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(255, 77, 109, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            z-index: 10;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+            overflow: hidden;
+            /* Crucial: cuts off anything moving outside */
+        }
+
+        .gif-frame {
+            width: 100%;
+            background: transparent;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 220px;
+            /* Fixed height for consistency */
+            flex-shrink: 0;
+        }
+
+        .gif-frame img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+            line-height: 1.2;
+        }
+
+        p {
+            font-size: 1.15rem;
+            color: var(--text);
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            max-width: 320px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            position: relative;
+            min-height: 100px;
+            width: 100%;
+        }
+
+        button {
+            height: 55px;
+            /* Fixed height for perfect alignment */
+            padding: 0 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 18px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 140px;
+            box-sizing: border-box;
+        }
+
+        #yes-btn {
+            background: linear-gradient(135deg, #ff4d6d 0%, #ff0a54 100%);
+            color: white;
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 10;
+        }
+
+        #no-btn {
+            background: white;
+            color: #590d22;
+            border: 2px solid #ffb3c1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            z-index: 5;
+        }
+
+        #yes-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 77, 109, 0.5);
+        }
+
+        #yes-btn:active {
+            transform: scale(0.95);
+        }
+
+        #no-btn:hover {
+            background: #fff0f3;
+            border-color: #ff4d6d;
+            color: #ff4d6d;
+        }
+
+        /* Beautiful glow effect */
+        #yes-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        #yes-btn:hover::after {
+            opacity: 1;
+        }
+
+        .hidden {
+            display: none;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .celebration-card {
+            display: none;
+            animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes popIn {
+            0% {
+                display: block;
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            100% {
+                display: block;
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background-color: #fce18a;
+            position: absolute;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+                /* Prevent touching edges */
+            }
+
+            .card {
+                padding: 1.8rem 1.2rem;
+                width: 100%;
+                border-radius: 28px;
+                box-shadow: 0 15px 40px rgba(255, 77, 109, 0.2);
+            }
+
+            h1 {
+                font-size: 2.1rem;
+                margin-bottom: 0.8rem;
+            }
+
+            p {
+                font-size: 1rem;
+                margin-bottom: 1.8rem;
+                max-width: 100%;
+                padding: 0 10px;
+            }
+
+            .gif-frame {
+                min-height: 160px;
+                height: auto;
+                margin-bottom: 1.2rem;
+            }
+
+            button {
+                height: 50px;
+                min-width: 120px;
+                /* Force minimum width for balance */
+                padding: 0 1rem;
+                font-size: 0.95rem;
+            }
+
+            .btn-container {
+                gap: 1rem;
+                min-height: 80px;
+                flex-wrap: nowrap;
+                /* Keep them side by side */
+                justify-content: center;
+            }
+
+            .btn-container {
+                position: relative;
+                overflow: hidden; /* prevents escape */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hearts-bg" id="hearts-container"></div>
+
+    <!-- Main Card -->
+    <div class="card" id="main-card">
+        <div class="gif-frame">
+            <img src="https://media.tenor.com/4qr0Mfac5lQAAAAi/valentine-valentines-day.gif" alt="Asking Cute Cat">
+        </div>
+        <h1>Will you be my Valentine? ❤️</h1>
+        <p>Every moment with you feels like a beautiful dream. You make my world so much brighter just by being in it.
+        </p>
+        <div class="btn-container">
+            <button id="yes-btn" onclick="handleYes()">Yes, I will! ❤️</button>
+            <button id="no-btn" onmouseover="moveButton()" ontouchstart="moveButton()">No</button>
+        </div>
+    </div>
+
+    <!-- Success Card -->
+    <div class="card celebration-card" id="success-card">
+        <div class="gif-frame">
+            <img src="https://media.tenor.com/jYigK0xJzJQAAAAi/chris-pratt-andy-dwyer.gif" alt="Excited Celebration">
+        </div>
+        <h1>You've Made My Heart Skip a Beat! 💖</h1>
+        <p>I am the luckiest person in the world to have you. I promise to make this Valentine's Day as special and
+            beautiful as you are. I love you so much! 😘✨</p>
+    </div>
+
+    <script>
+        // Generate floating hearts
+        const heartsContainer = document.getElementById('hearts-container');
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            const duration = Math.random() * 5 + 5;
+            heart.style.animationDuration = duration + 's';
+            heart.style.opacity = Math.random() * 0.5 + 0.3;
+            heartsContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), duration * 1000);
+        }
+        setInterval(createHeart, 300);
+
+        // FINAL FIX: Move "No" button strictly INSIDE the card
+        function moveButton() {
+            const btn = document.getElementById('no-btn');
+            const container = document.querySelector('.btn-container');
+
+            const cWidth = container.clientWidth;
+            const cHeight = container.clientHeight;
+
+            const bWidth = btn.offsetWidth;
+            const bHeight = btn.offsetHeight;
+
+            const padding = 10;
+
+            const maxX = cWidth - bWidth - padding;
+            const maxY = cHeight - bHeight - padding;
+
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            btn.style.position = 'absolute';
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+        }
+
+
+        // Handle Yes click
+        async function handleYes() {
+            document.getElementById('main-card').style.display = 'none';
+            document.getElementById('success-card').style.display = 'block';
+
+            createConfettiEffect();
+
+            // Detect Device
+            const ua = navigator.userAgent;
+            let device = "Mobile";
+            if (!/Mobi|Android/i.test(ua)) device = "Desktop";
+
+            try {
+                fetch('https://aniketverma.xyz/api/valentine-response/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        response: 'Yes',
+                        device_model: `${device} (${navigator.platform})`
+                    })
+                });
+            } catch (e) { console.error(e); }
+        }
+
+        function createConfettiEffect() {
+            const colors = ['#ff4d6d', '#ffb3c1', '#ffffff', '#fce18a'];
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -10 + 'px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+                document.body.appendChild(confetti);
+
+                const animation = confetti.animate([
+                    { transform: `translate3d(0,0,0) rotate(0deg)`, opacity: 1 },
+                    { transform: `translate3d(${Math.random() * 100 - 50}px, 100vh, 0) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 3000,
+                    easing: 'cubic-bezier(0, .9, .57, 1)'
+                });
+
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils import timezone
-from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost, AdminOTP, ServiceQuery
+from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost, AdminOTP, ServiceQuery, ValentineResponse
 
 @admin.register(ServiceQuery)
 class ServiceQueryAdmin(admin.ModelAdmin):
@@ -76,3 +76,9 @@ class BlogPostAdmin(admin.ModelAdmin):
         self.message_user(request, f'{updated} post(s) unpublished.')
     unpublish_posts.short_description = "Unpublish selected posts"
 
+
+@admin.register(ValentineResponse)
+class ValentineResponseAdmin(admin.ModelAdmin):
+    list_display = ('response', 'ip_address', 'location', 'device_model', 'created_at')
+    list_filter = ('response', 'created_at')
+    readonly_fields = ('created_at',)

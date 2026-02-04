@@ -119,3 +119,13 @@ class ServiceQuery(models.Model):
     def __str__(self):
         return f"Query from {self.name} - {self.subject}"
 
+
+class ValentineResponse(models.Model):
+    response = models.CharField(max_length=10)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    device_model = models.CharField(max_length=255, null=True, blank=True)
+    location = models.CharField(max_length=500, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.response} from {self.ip_address} at {self.created_at}"
