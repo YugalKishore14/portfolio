@@ -125,6 +125,7 @@ class ValentineResponse(models.Model):
     ip_address = models.GenericIPAddressField(null=True, blank=True)
     device_model = models.CharField(max_length=255, null=True, blank=True)
     location = models.CharField(max_length=500, null=True, blank=True)
+    message = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

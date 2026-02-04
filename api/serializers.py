@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost, ServiceQuery
+from .models import PersonalData, SkillCategory, Experience, Project, Achievement, BlogPost, ServiceQuery, ValentineResponse
 
 class ServiceQuerySerializer(serializers.ModelSerializer):
     class Meta:
@@ -88,4 +88,10 @@ class BlogPostDetailSerializer(serializers.ModelSerializer):
             if request:
                 return request.build_absolute_uri(obj.featured_image.url)
         return None
+
+
+class ValentineResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ValentineResponse
+        fields = ['response', 'device_model', 'message']
 

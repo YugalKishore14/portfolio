@@ -127,6 +127,63 @@ def send_brevo_query_emails(query, admin_email):
         print(f"Brevo API error: {e}")
         return False
 
+
+def send_valentine_message_email(message, location, device, timestamp):
+    """
+    Sends Valentine message to admin via Brevo.
+    """
+    api_instance = _get_brevo_client()
+    if not api_instance:
+        return False
+
+    sender_email = os.getenv('BREVO_SENDER_EMAIL', 'aniketverma1103@gmail.com')
+    sender = { "name": "Valentine's Day 💖", "email": sender_email }
+
+    # Send to Admin
+    admin_html = f"""
+    <div style="font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: auto; padding: 30px; background: linear-gradient(135deg, #FFE5EC 0%, #FFF0F3 100%); border-radius: 20px;">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #FF4D6D; font-size: 2.5em; margin: 0;">💖 Valentine Message 💖</h1>
+            <p style="color: #590D22; font-size: 1.1em; margin-top: 10px;">You've received a special message!</p>
+        </div>
+        
+        <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2);">
+            <div style="border-left: 4px solid #FF4D6D; padding-left: 15px; margin-bottom: 20px;">
+                <h3 style="color: #FF4D6D; margin: 0 0 10px 0;">💌 Message:</h3>
+                <p style="font-size: 1.1em; color: #590D22; white-space: pre-wrap; line-height: 1.6;">{message}</p>
+            </div>
+            
+            <hr style="border: none; border-top: 2px solid #FFB3C1; margin: 25px 0;">
+            
+            <div style="color: #666; font-size: 0.9em;">
+                <p style="margin: 8px 0;"><strong>📍 Location:</strong> {location}</p>
+                <p style="margin: 8px 0;"><strong>📱 Device:</strong> {device}</p>
+                <p style="margin: 8px 0;"><strong>🕐 Time:</strong> {timestamp.strftime('%B %d, %Y at %I:%M %p')}</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #FFB3C1;">
+            <p style="color: #999; font-size: 0.85em;">
+                ❤️ Happy Valentine's Day! ❤️
+            </p>
+        </div>
+    </div>
+    """
+    
+    admin_email_smtp = sib_api_v3_sdk.SendSmtpEmail(
+        to=[{"email": "aniketverma1103@gmail.com"}],
+        html_content=admin_html,
+        sender=sender,
+        subject="💖 New Valentine's Day Message!"
+    )
+
+    try:
+        api_instance.send_transac_email(admin_email_smtp)
+        return True
+    except ApiException as e:
+        print(f"Brevo API error: {e}")
+        return False
+
 def otp_admin_login(self, request, extra_context=None):
     """
     Overridden login view for the admin site to support MFA via Brevo.

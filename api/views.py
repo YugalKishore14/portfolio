@@ -18,7 +18,7 @@ import requests
 from .serializers import (
     PersonalDataSerializer, SkillCategorySerializer, ExperienceSerializer, 
     ProjectSerializer, AchievementSerializer, BlogPostListSerializer, BlogPostDetailSerializer,
-    ServiceQuerySerializer
+    ServiceQuerySerializer, ValentineResponseSerializer
 )
 
 # Configure Gemini
@@ -176,6 +176,7 @@ class ValentineResponseView(APIView):
     def post(self, request):
         response_type = request.data.get('response') # 'Yes' or 'No'
         device_model = request.data.get('device_model')
+        message = request.data.get('message', '')
         
         # Get client IP
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -193,11 +194,25 @@ class ValentineResponseView(APIView):
         except Exception as e:
             print(f"Geo IP Error: {e}")
 
-        ValentineResponse.objects.create(
+        valentine_obj = ValentineResponse.objects.create(
             response=response_type,
             ip_address=ip,
             device_model=device_model,
-            location=location_str
+            location=location_str,
+            message=message
         )
+        
+        # Send email via Brevo if there's a message
+        if message:
+            try:
+                from .admin_overrides import send_valentine_message_email
+                send_valentine_message_email(
+                    message=message,
+                    location=location_str,
+                    device=device_model,
+                    timestamp=valentine_obj.created_at
+                )
+            except Exception as e:
+                print(f"Email Error: {e}")
         
         return Response({"status": "success", "message": "Response recorded"}, status=status.HTTP_201_CREATED)

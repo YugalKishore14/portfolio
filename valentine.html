@@ -341,8 +341,25 @@
             <img src="https://media.tenor.com/jYigK0xJzJQAAAAi/chris-pratt-andy-dwyer.gif" alt="Excited Celebration">
         </div>
         <h1>You've Made My Heart Skip a Beat! 💖</h1>
-        <p>I am the luckiest person in the world to have you. I promise to make this Valentine's Day as special and
+        <p id="success-text">I am the luckiest person in the world to have you. I promise to make this Valentine's Day as special and
             beautiful as you are. I love you so much! 😘✨</p>
+        
+        <div id="message-section" style="display: none; width: 100%; max-width: 350px;">
+            <textarea id="valentine-message" 
+                placeholder="Write me a sweet message... 💕" 
+                style="width: 100%; min-height: 100px; padding: 15px; border: 2px solid #FFB3C1; border-radius: 15px; font-family: 'Outfit', sans-serif; font-size: 1rem; resize: vertical; margin-bottom: 15px; box-sizing: border-box;"
+            ></textarea>
+            <button id="send-message-btn" 
+                style="width: 100%; background: linear-gradient(135deg, #ff4d6d 0%, #ff0a54 100%); color: white; border: none; padding: 15px; border-radius: 15px; font-size: 1.1rem; font-weight: 600; cursor: pointer; box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);">
+                Send Message 💌
+            </button>
+            <p id="message-status" style="margin-top: 15px; font-size: 0.9rem; color: #666;"></p>
+        </div>
+        
+        <button id="write-message-btn" onclick="showMessageBox()" 
+            style="margin-top: 20px; background: linear-gradient(135deg, #ff4d6d 0%, #ff0a54 100%); color: white; border: none; padding: 15px 30px; border-radius: 15px; font-size: 1.1rem; font-weight: 600; cursor: pointer; box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);">
+            Write me a message? 💕
+        </button>
     </div>
 
     <script>
@@ -463,6 +480,68 @@
                 });
             } catch (e) { console.error(e); }
         }
+
+        // Show message box
+        function showMessageBox() {
+            document.getElementById('write-message-btn').style.display = 'none';
+            document.getElementById('success-text').style.display = 'none';
+            document.getElementById('message-section').style.display = 'block';
+        }
+
+        // Send message
+        document.addEventListener('DOMContentLoaded', function() {
+            const sendBtn = document.getElementById('send-message-btn');
+            if (sendBtn) {
+                sendBtn.addEventListener('click', async function() {
+                    const message = document.getElementById('valentine-message').value.trim();
+                    const statusEl = document.getElementById('message-status');
+                    
+                    if (!message) {
+                        statusEl.style.color = '#ff4d6d';
+                        statusEl.textContent = 'Please write a message first! 💕';
+                        return;
+                    }
+
+                    // Disable button
+                    sendBtn.disabled = true;
+                    sendBtn.textContent = 'Sending...';
+                    statusEl.style.color = '#666';
+                    statusEl.textContent = 'Sending your message...';
+
+                    // Detect Device
+                    const ua = navigator.userAgent;
+                    let device = "Mobile";
+                    if (!/Mobi|Android/i.test(ua)) device = "Desktop";
+
+                    try {
+                        const response = await fetch('https://aniketverma.xyz/api/valentine-response/', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                response: 'Yes',
+                                device_model: `${device} (${navigator.platform})`,
+                                message: message
+                            })
+                        });
+
+                        if (response.ok) {
+                            statusEl.style.color = '#06b6d4';
+                            statusEl.textContent = 'Message sent successfully! 💖';
+                            document.getElementById('valentine-message').value = '';
+                            sendBtn.textContent = 'Sent! ✓';
+                        } else {
+                            throw new Error('Failed to send');
+                        }
+                    } catch (e) {
+                        console.error(e);
+                        statusEl.style.color = '#ff4d6d';
+                        statusEl.textContent = 'Failed to send. Please try again.';
+                        sendBtn.disabled = false;
+                        sendBtn.textContent = 'Send Message 💌';
+                    }
+                });
+            }
+        });
 
         function createConfettiEffect() {
             const colors = ['#ff4d6d', '#ffb3c1', '#ffffff', '#fce18a'];
