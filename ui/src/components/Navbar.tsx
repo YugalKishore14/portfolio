@@ -40,7 +40,7 @@ export default function Navbar() {
                         <div className="absolute inset-0 bg-cyan-500/20 blur-lg rounded-full group-hover:bg-cyan-400/30 transition-all" />
                     </div>
                     <span className="font-orbitron font-bold text-xl tracking-wider text-slate-100 group-hover:text-cyan-400 transition-colors">
-                        AV<span className="text-cyan-500">.hq</span>
+                        YK<span className="text-cyan-500">.dev</span>
                     </span>
                 </Link>
 

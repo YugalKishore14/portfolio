@@ -1,12 +1,12 @@
 export const personalData = {
-    name: "Aniket Verma",
+    name: "Yugal Kishor",
     role: "Senior Software Engineer",
     tagline: "Building Corporate AI Agents & Scalable Systems",
     mission: "I build cinematic, high-performance web applications and intelligent AI agents that solve real-world problems.",
     about: {
         title: "Engineering Philosophy",
         description: [
-            "I specialize in building Corporate AI Agents using Python, LangGraph, and Microsoft Copilot Studio.",
+            "I specialize in building Corporate AI Agents using MERN + AI, LangGraph, and Microsoft Copilot Studio.",
             "My focus is on workflow automation, enterprise-grade AI integrations, and scalable cloud solutions.",
             "I am experienced in AWS, GCP, and Azure, ensuring high performance and resilience.",
             "I value clean code, rapid iteration, and delivering impact through technology."
@@ -14,17 +14,17 @@ export const personalData = {
         values: ["Innovation", "Scalability", "User Experience", "Reliability"]
     },
     contact: {
-        email: "aniket.verma@example.com", // Placeholder as not found in snippet
-        linkedin: "https://linkedin.com/in/aniketverma", // Placeholder
-        github: "https://github.com/aniketverma", // Placeholder
-        resumeUrl: "/aniket-resume.pdf"
+        email: "yugalkishore14@gmail.com",
+        linkedin: "https://linkedin.com/in/yugalkishore14",
+        github: "https://github.com/yugalkishore14",
+        resumeUrl: "/media/resumes/yugal-resumeSEO.pdf"
     }
 };
 
 export const skills = [
     {
         category: "Languages",
-        items: ["Python", "JavaScript", "Solidity", "SQL", "C++", "HTML/CSS"]
+        items: ["MERN + AI", "JavaScript", "Solidity", "SQL", "C++", "HTML/CSS"]
     },
     {
         category: "Frameworks & Libraries",
@@ -50,7 +50,7 @@ export const experience = [
         role: "Senior Software Engineer",
         period: "Sep 2024 - Present",
         color: "blue",
-        description: "Leading development of enterprise Copilot agents using Python, LangChain, and Azure AI. Architecting next-gen insurance solutions with Django, ReactJS, and CrewAI.",
+        description: "Leading development of enterprise Copilot agents using MERN + AI, LangChain, and Azure AI. Architecting next-gen insurance solutions with Django, ReactJS, and CrewAI.",
         achievements: [
             "Deployed enterprise Copilot agents for intelligent automation.",
             "Architected insurance solutions using Django & ReactJS.",
@@ -59,7 +59,7 @@ export const experience = [
     },
     {
         company: "Benthon Labs",
-        role: "Full Stack Python Developer",
+        role: "Full Stack MERN + AI Developer",
         period: "Oct 2023 - July 2024",
         color: "purple",
         description: "Led development of PulseCRM-pro using Node.js and MongoDB. Spearheaded integration of PyTest and Django for Dalmia Bharat MM portal.",

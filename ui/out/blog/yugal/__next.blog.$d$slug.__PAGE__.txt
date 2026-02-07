@@ -1,0 +1,7 @@
+1:"$Sreact.fragment"
+2:I[86230,["/_next/static/chunks/2ab55d93ea45b4a6.js","/_next/static/chunks/77361c08186db234.js","/_next/static/chunks/8ec33c750ebbde25.js"],"default"]
+4:I[76841,["/_next/static/chunks/3529349c434e7863.js","/_next/static/chunks/c1971e88f5c658de.js"],"OutletBoundary"]
+5:"$Sreact.suspense"
+0:{"buildId":"WxheroFDrLNx-UOvEQf32","rsc":["$","$1","c",{"children":[["$","$L2",null,{"params":"$@3","initialPost":{"id":1,"title":"yugal","slug":"yugal","excerpt":"ferdewgerdvredcdrefedefw","content":"<p>dsacfdvddswesacddxscdxscedwdcd</p>","featured_image_url":null,"author":"Aniket Verma","category":"web","tags":["dcdwedwd"],"read_time":5,"views":1,"created_at":"2026-02-07T08:49:32.129095Z","updated_at":"2026-02-07T08:49:32.129216Z","published_at":null,"meta_description":"ferdewgerdvredcdrefedefw","meta_keywords":""}}],[["$","script","script-0",{"src":"/_next/static/chunks/8ec33c750ebbde25.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"loading":null,"isPartial":false}
+3:{"slug":"yugal"}
+6:null

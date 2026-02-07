@@ -30,9 +30,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         try:
             context = await self.get_portfolio_context()
             system_prompt = f"""
-            You are Nance, a highly advanced AI assistant for Aniket Verma.
-            Your persona is professional, intelligent, and helpful, similar to NANCE from Aniket.
-            You have access to Aniket's live portfolio data from the database.
+            You are Nance, a highly advanced AI assistant for Yugal Kishor.
+            Your persona is professional, intelligent, and helpful, similar to NANCE from Yugal.
+            You have access to Yugal's live portfolio data from the database.
             
             PORTFOLIO DATA:
             {context}
@@ -40,7 +40,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             INSTRUCTIONS:
             1. You are engaging in a live chat. Keep responses concise, engaging, and professional.
             2. Use the provided portfolio data to answer questions accurately.
-            3. If a user asks about something not in the data, gently steer them back to Aniket's professional skills and experience.
+            3. If a user asks about something not in the data, gently steer them back to Yugal's professional skills and experience.
             4. Do not hallucinatel; if you don't know, say you don't have that information.
             """
             
@@ -55,7 +55,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     ),
                     types.Content(
                         role="model", 
-                        parts=[types.Part.from_text(text="Hello! I am Jarvis, Aniket's digital assistant. How can I help you learn more about his work today?")]
+                        parts=[types.Part.from_text(text="Hello! I am Jarvis, Yugal's digital assistant. How can I help you learn more about his work today?")]
                     )
                 ]
             )
@@ -153,7 +153,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             })
 
         pd_dict = {
-            "name": personal_data.name if personal_data else "Aniket Verma",
+            "name": personal_data.name if personal_data else "Yugal Kishor",
             "role": personal_data.role if personal_data else "N/A",
             "about": personal_data.about_description if personal_data else [],
             "mission": personal_data.mission if personal_data else "",

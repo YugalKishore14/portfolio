@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron" });
 
 export const metadata: Metadata = {
-  title: "Aniket Verma | Senior Software Engineer",
+  title: "Yugal Kishor | Senior Software Engineer",
   description: "Senior Software Engineer Portfolio - AI/ML",
 };
 

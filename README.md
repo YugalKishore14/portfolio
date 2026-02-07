@@ -1,8 +1,8 @@
-# 🚀 Aniket Verma - Personal Portfolio
+# 🚀 Yugal Kishor - Personal Portfolio
 
 A modern, cinematic portfolio website with an Avengers-inspired design, featuring an AI-powered chatbot, dynamic blog system, and a powerful Django REST API backend.
 
-![Portfolio Preview](https://img.shields.io/badge/Status-Live-brightgreen) ![Django](https://img.shields.io/badge/Django-5.2.8-green) ![Next.js](https://img.shields.io/badge/Next.js-16.1.4-black) ![Python](https://img.shields.io/badge/Python-3.11+-blue)
+![Portfolio Preview](https://img.shields.io/badge/Status-Live-brightgreen) ![Django](https://img.shields.io/badge/Django-5.2.8-green) ![Next.js](https://img.shields.io/badge/Next.js-16.1.4-black) ![MERN + AI](https://img.shields.io/badge/MERN + AI-3.11+-blue)
 
 ## 🌟 Features
 
@@ -69,14 +69,14 @@ portfolio/
 │   └── out/               # Static export output
 ├── media/                  # Uploaded files
 ├── staticfiles/           # Collected static files
-├── requirements.txt       # Python dependencies
+├── requirements.txt       # MERN + AI dependencies
 └── render_start.sh        # Production start script
 ```
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Python 3.11+
+- MERN + AI 3.11+
 - Node.js 18+
 - npm or yarn
 
@@ -84,7 +84,7 @@ portfolio/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/aniketverma/portfolio.git
+   git clone https://github.com/yugalkishore14/portfolio.git
    cd portfolio
    ```
 
@@ -96,7 +96,7 @@ portfolio/
    venv\Scripts\activate     # Windows
    ```
 
-3. **Install Python dependencies**
+3. **Install MERN + AI dependencies**
    ```bash
    pip install -r requirements.txt
    ```
@@ -224,10 +224,10 @@ This project is licensed under the MIT License.
 
 ## 👨‍💻 Author
 
-**Aniket Verma**
-- Website: [aniketverma.xyz](https://aniketverma.xyz)
-- LinkedIn: [linkedin.com/in/aniketverma](https://linkedin.com/in/aniketverma)
-- GitHub: [github.com/aniketverma](https://github.com/aniketverma)
+**Yugal Kishor**
+- Website: [yugalkishore14.xyz](https://yugalkishore14.xyz)
+- LinkedIn: [linkedin.com/in/yugalkishore14](https://linkedin.com/in/yugalkishore14)
+- GitHub: [github.com/yugalkishore14](https://github.com/yugalkishore14)
 
 ---
 

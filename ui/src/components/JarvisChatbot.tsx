@@ -192,7 +192,7 @@ const JarvisChatbot = () => {
         setIsOpen(true);
         setShowTooltip(false);
         if (messages.length === 0) {
-            const greeting = "Nance is online. I'm MR.Verma's personal assistant. How may I assist you, Sir?";
+            const greeting = "Nance is online. I'm MR.Kishor's personal assistant. How may I assist you, Sir?";
             setMessages([{ id: 0, text: greeting, sender: "jarvis" }]);
             speak(greeting);
         }
@@ -277,7 +277,7 @@ const JarvisChatbot = () => {
                             <div className="flex justify-between items-center p-4 border-b border-cyan-500/20 bg-cyan-950/10 z-20">
                                 <div className="flex items-center gap-2 text-cyan-400">
                                     <Terminal className="w-5 h-5" />
-                                    <span className="font-bold tracking-widest text-sm">ANIKET'S AGENT</span>
+                                    <span className="font-bold tracking-widest text-sm">YUGAL'S AGENT</span>
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <button

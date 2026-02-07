@@ -1,0 +1,22 @@
+Yugal Kishor
+Software Engineer
+
+Mission: I build cinematic, high-performance web applications and intelligent AI agents that solve real-world problems.
+Engineering Philosophy: 
+- Specializing in building Corporate AI Agents using MERN + AI, LangGraph, and Microsoft Copilot Studio.
+- Focus on workflow automation, enterprise-grade AI integrations, and scalable cloud solutions.
+- Experienced in AWS, GCP, and Azure.
+- Values clean code and rapid iteration.
+
+Skills:
+- Languages: MERN + AI, JavaScript, Solidity, SQL, C++, HTML/CSS
+- Frameworks: Django, FastAPI, React.js, Next.js, Node.js, LangChain, TensorFlow, PyTorch
+- Cloud: AWS, Azure, GCP, Docker, Nginx, CI/CD
+- Databases: PostgreSQL, MongoDB, MySQL, Redis
+- AI: LLMs, RAG, GenAI, LangGraph
+
+Experience:
+- Coforge (Senior Software Engineer): Leading enterprise Copilot agents development.
+- Benthon Labs (Full Stack MERN + AI Developer): Developed PulseCRM-pro.
+- CreateBytes (SDE 1): Specialized in ML and AI products.
+- Rapid Innovation (Blockchain Developer): Built DApps and Smart Contracts.

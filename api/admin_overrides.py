@@ -35,7 +35,7 @@ def send_brevo_otp(email, otp):
     if not api_instance:
         return False
 
-    sender_email = os.getenv('BREVO_SENDER_EMAIL', 'aniketverma1103@gmail.com')
+    sender_email = os.getenv('BREVO_SENDER_EMAIL', 'yugalkishore14@gmail.com')
     subject = "Admin Login OTP"
     html_content = f"""
     <html>
@@ -52,7 +52,7 @@ def send_brevo_otp(email, otp):
             </p>
             <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
             <p style="text-align: center; color: #999; font-size: 0.8em;">
-                &copy; Aniket Verma Portfolio Admin
+                &copy; Yugal Kishor Portfolio Admin
             </p>
         </div>
     </body>
@@ -84,7 +84,7 @@ def send_brevo_query_emails(query, admin_email):
     if not api_instance:
         return False
 
-    sender_email = os.getenv('BREVO_SENDER_EMAIL', 'aniketverma1103@gmail.com')
+    sender_email = os.getenv('BREVO_SENDER_EMAIL', 'yugalkishore14@gmail.com')
     sender = { "name": "Portfolio System", "email": sender_email }
 
     # 1. Send to Admin
@@ -116,7 +116,7 @@ def send_brevo_query_emails(query, admin_email):
         <hr/>
         <p><strong>Your Message:</strong></p>
         <p style="color: #666; font-style: italic;">{query.message}</p>
-        <p style="margin-top: 20px;">Best regards,<br/>Aniket Verma</p>
+        <p style="margin-top: 20px;">Best regards,<br/>Yugal Kishor</p>
     </div>
     """
     
@@ -145,7 +145,7 @@ def send_valentine_message_email(message, location, device, timestamp):
     if not api_instance:
         return False
 
-    sender_email = os.getenv('BREVO_SENDER_EMAIL', 'aniketverma1103@gmail.com')
+    sender_email = os.getenv('BREVO_SENDER_EMAIL', 'yugalkishore14@gmail.com')
     sender = { "name": "Valentine's Day 💖", "email": sender_email }
 
     # Send to Admin
@@ -180,7 +180,7 @@ def send_valentine_message_email(message, location, device, timestamp):
     """
     
     admin_email_smtp = sib_api_v3_sdk.SendSmtpEmail(
-        to=[{"email": "aniketverma1103@gmail.com"}],
+        to=[{"email": "yugalkishore14@gmail.com"}],
         html_content=admin_html,
         sender=sender,
         subject="💖 New Valentine's Day Message!"

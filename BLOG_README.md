@@ -61,7 +61,7 @@ Returns blog posts filtered by category.
 
 1. **Basic Information**
    - Title: Your blog post title (slug auto-generates)
-   - Author: Default is "Aniket Verma"
+   - Author: Default is "Yugal Kishor"
    - Category: Choose or create a category
    - Status: Draft or Published
 
@@ -76,7 +76,7 @@ Returns blog posts filtered by category.
    - Featured Image: Upload a cover image
 
 3. **Metadata**
-   - Tags: JSON array, e.g., `["Python", "Django", "AI"]`
+   - Tags: JSON array, e.g., `["MERN + AI", "Django", "AI"]`
    - Read Time: Estimated minutes to read
 
 4. **SEO** (Optional)
@@ -129,7 +129,7 @@ class BlogPost(models.Model):
     excerpt = TextField(max_length=500)
     content = RichTextUploadingField()  # CKEditor
     featured_image = ImageField()
-    author = CharField(default="Aniket Verma")
+    author = CharField(default="Yugal Kishor")
     tags = JSONField()  # List of strings
     category = CharField(max_length=100)
     status = CharField(choices=['draft', 'published'])
