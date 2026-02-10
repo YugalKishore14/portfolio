@@ -1,5 +1,5 @@
 Yugal Kishor
-Software Engineer
+MERN Stack Developer
 
 Mission: I build cinematic, high-performance web applications and intelligent AI agents that solve real-world problems.
 Engineering Philosophy: 
@@ -16,7 +16,7 @@ Skills:
 - AI: LLMs, RAG, GenAI, LangGraph
 
 Experience:
-- Coforge (Senior Software Engineer): Leading enterprise Copilot agents development.
+- Coforge (MERN Stack Developer): Leading enterprise Copilot agents development.
 - Benthon Labs (Full Stack MERN + AI Developer): Developed PulseCRM-pro.
 - CreateBytes (SDE 1): Specialized in ML and AI products.
 - Rapid Innovation (Blockchain Developer): Built DApps and Smart Contracts.

@@ -7,8 +7,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron" });
 
 export const metadata: Metadata = {
-  title: "Yugal Kishor | Senior Software Engineer",
-  description: "Senior Software Engineer Portfolio - AI/ML",
+  title: "Yugal MERN Stack Developer",
+  description: "MERN Stack Developer Portfolio",
 };
 
 export default function RootLayout({

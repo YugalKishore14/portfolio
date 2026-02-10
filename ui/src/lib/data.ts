@@ -1,6 +1,6 @@
 export const personalData = {
     name: "Yugal Kishor",
-    role: "Senior Software Engineer",
+    role: "MERN Stack Developer",
     tagline: "Building Corporate AI Agents & Scalable Systems",
     mission: "I build cinematic, high-performance web applications and intelligent AI agents that solve real-world problems.",
     about: {
@@ -47,7 +47,7 @@ export const skills = [
 export const experience = [
     {
         company: "Coforge",
-        role: "Senior Software Engineer",
+        role: "MERN Stack Developer",
         period: "Sep 2024 - Present",
         color: "blue",
         description: "Leading development of enterprise Copilot agents using MERN + AI, LangChain, and Azure AI. Architecting next-gen insurance solutions with Django, ReactJS, and CrewAI.",
